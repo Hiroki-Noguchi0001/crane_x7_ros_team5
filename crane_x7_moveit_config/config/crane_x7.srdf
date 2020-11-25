@@ -1,3 +1,6 @@
+<!-- このcrane_x7.srdfは、オリジナル [https://github.com/rt-net/crane_x7_ros/blob/master/crane_x7_moveit_config/config/crane_x7.srdf] を千葉工業大学 2020年度 設計製作論3 知能コース 5班が改変したものです。-->
+<!-- This crane_x7.srdf was made changes to original [https://github.com/rt-net/crane_x7_ros/blob/master/crane_x7_moveit_config/config/crane_x7.srdf] by team 5 that was 2020 Design and Production Theory 3 Intelligence Course in Chiba Institute of Technology .-->
+
 <?xml version="1.0" ?>
 <!--This does not replace URDF, and is not an extension of URDF.
     This is a format for representing semantic information about the robot structure.
@@ -36,6 +39,24 @@
         <joint name="crane_x7_upper_arm_revolute_part_rotate_joint" value="-2.1994" />
         <joint name="crane_x7_upper_arm_revolute_part_twist_joint" value="0" />
         <joint name="crane_x7_wrist_joint" value="0" />
+    </group_state>
+    <group_state name="before_stamping_position" group="arm">
+        <joint name="crane_x7_lower_arm_fixed_part_joint" value="0.01048" />
+        <joint name="crane_x7_lower_arm_revolute_part_joint" value="-0.995" />
+        <joint name="crane_x7_shoulder_fixed_part_pan_joint" value="-0.2215" />
+        <joint name="crane_x7_shoulder_revolute_part_tilt_joint" value="0.02961" />
+        <joint name="crane_x7_upper_arm_revolute_part_rotate_joint" value="-2.1973" />
+        <joint name="crane_x7_upper_arm_revolute_part_twist_joint" value="0.21644" />
+        <joint name="crane_x7_wrist_joint" value="0" /><!-- -1.57-->
+    </group_state>
+    <group_state name="pick_seal_position" group="arm">
+        <joint name="crane_x7_lower_arm_fixed_part_joint" value="-0.110369" />
+        <joint name="crane_x7_lower_arm_revolute_part_joint" value="-1.1134585" />
+        <joint name="crane_x7_shoulder_fixed_part_pan_joint" value="-0.628" />
+        <joint name="crane_x7_shoulder_revolute_part_tilt_joint" value="-0.485947" />
+        <joint name="crane_x7_upper_arm_revolute_part_rotate_joint" value="-1.57774728" />
+        <joint name="crane_x7_upper_arm_revolute_part_twist_joint" value="0.2205" />
+        <joint name="crane_x7_wrist_joint" value="-0.38" /><!-- -1.95-->
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="end_effector" parent_link="crane_x7_gripper_base_link" group="gripper" />
