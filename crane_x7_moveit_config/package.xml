@@ -6,9 +6,12 @@
      An automatically generated package with all the configuration and launch files for using the crane_x7 with the MoveIt! Motion Planning Framework
   </description>
 
-  <maintainer email="shop@rt-net.jp">RT Corporation</maintainer>
-  <author email="nomura@rt-net.jp">Hiroyuki Nomura</author>
-  <author email="geoffrey.biggs@aist.go.jp">Geoffrey Biggs</author>
+  <maintainer email="s19c1040hd@s.chibakoudai.jp">Masato Kubotera</maintainer>
+  <author email="s19c1040hd@s.chibakoudai.jp">Masato Kubotera</author>
+  <author email="s19C1057fa@s.chibakoudai.jp">Kazuki Shirasu</author>
+  <author email="s19C1067up@s.chibakoudai.jp">Naoya Takahashi</author>
+  <author email="s19c1113vh@s.chibakoudai.jp">Yuta Mibuchi</author>
+  <author email="s19C1123jf@s.chibakoudai.jp">Riku Yokoo</author>
 
   <license>NON-COMMERCIAL LICENSE AGREEMENT</license>
 
