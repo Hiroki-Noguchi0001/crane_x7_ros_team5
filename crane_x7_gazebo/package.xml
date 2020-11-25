@@ -4,8 +4,12 @@
   <version>0.0.0</version>
   <description>The crane_x7_gazebo package</description>
 
-  <maintainer email="shop@rt-net.jp">RT Corporation</maintainer>
-  <maintainer email="macakasit@gmail.com">Shota Aoki</maintainer>
+  <maintainer email="s19c1040hd@s.chibakoudai.jp">Masato Kubotera</maintainer>
+  <author email="s19c1040hd@s.chibakoudai.jp">Masato Kubotera</author>
+  <author email="s19C1057fa@s.chibakoudai.jp">Kazuki Shirasu</author>
+  <author email="s19C1067up@s.chibakoudai.jp">Naoya Takahashi</author>
+  <author email="s19c1113vh@s.chibakoudai.jp">Yuta Mibuchi</author>
+  <author email="s19C1123jf@s.chibakoudai.jp">Riku Yokoo</author>
 
   <license>NON-COMMERCIAL LICENSE AGREEMENT</license>
   <buildtool_depend>catkin</buildtool_depend>
