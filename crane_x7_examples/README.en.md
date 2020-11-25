@@ -2,7 +2,7 @@
 
 # crane_x7_examples
 
-This package includes examples to control CRANE-X7 using `crane_x7_ros`.
+This package was made changes to original [https://github.com/rt-net/crane_x7_ros/tree/master/crane_x7_examples] by team 5 that was 2020 Design and Production Theory 3 Intelligence Course in Chiba Institute of Technology .
 
 ## How to launch CRANE-X7 base packages
 
