@@ -1,3 +1,6 @@
+<!-- このtable.worldは、オリジナル [https://github.com/rt-net/crane_x7_ros/blob/master/crane_x7_gazebo/worlds/table.world] を千葉工業大学 2020年度 設計製作論3 知能コース 5班が改変したものです。-->
+<!-- This table.world was made changes to original [https://github.com/rt-net/crane_x7_ros/blob/master/crane_x7_gazebo/worlds/table.world] by team 5 that was 2020 Design and Production Theory 3 Intelligence Course in Chiba Institute of Technology .-->
+
 <?xml version="1.0" ?>
 <sdf version="1.6">
   <world name="CRANE-X7 with Table">
@@ -15,12 +18,68 @@
       <pose>0.29 0 0 0 0 1.5708</pose>
     </model>
 
-    <model name="wood_cube_5cm">
-      <include>
-        <uri>model://wood_cube_5cm</uri>
-      </include>
+    <!-- はんこ収納モデル -->
+    <model name="storage_model">
+       <include>
+         <uri>model://storage_model</uri>
+       </include>
+       <pose>0.30 -0.15 1.0 0 0 0</pose>
+    </model>
 
-      <pose>0.20 0 1.0 0 0 0</pose>
+    <!--補助具付 はんこモデル-->
+    <model name="asstseal_model">
+       <include>
+         <uri>model://asstseal_model</uri>
+       </include>
+       <pose>0.30 -0.15 1.02 0 0 0</pose>
+    </model>
+
+    <!-- はんこマットモデル -->
+    <model name="sealmat_model">
+       <include>
+         <uri>model://sealmat_model</uri>
+       </include>
+       <pose>0.20 0 1.0 0 0 1.5708</pose>
+    </model>
+    
+    <!-- 朱肉モデル -->
+    <model name="inkpad_model">
+       <include>
+         <uri>model://inkpad_model</uri>
+       </include>
+       <pose>0.20 -0.15 1.0 0 0 0</pose>
+    </model>
+    
+    <!-- ティッシュペーパーモデル -->
+    <model name="TissuePaper_model">
+       <include>
+         <uri>model://TissuePaper_model</uri>
+       </include>
+       <pose>0.20 0.30 1.0 0 0 0</pose>
+    </model>
+
+    <!-- スティックのりモデル -->
+    <model name="GlueStick_model">
+       <include>
+         <uri>model://GlueStick_model</uri>
+       </include>
+       <pose>0.00 -0.25 1.0 0 0 0</pose>
+    </model>
+
+    <!-- 消しゴムモデル -->
+    <model name="eraser_model">
+       <include>
+         <uri>model://eraser_model</uri>
+       </include>
+       <pose>0.10 -0.25 1.0 0 0 1.5708</pose>
+    </model>
+
+    <!-- 電池モデル -->
+    <model name="battery_model">
+       <include>
+         <uri>model://battery_model</uri>
+       </include>
+       <pose>0.20 -0.25 1.0 0 0 0</pose>
     </model>
 
     <model name="ground_plane">
