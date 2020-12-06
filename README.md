@@ -1,5 +1,7 @@
 [English](README.en.md) | [日本語](README.md)
 
+このパッケージは、オリジナル [https://github.com/rt-net/crane_x7_ros] を千葉工業大学 2020年度 設計製作論3 知能コース 5班が改変したものです。
+
 # crane_x7_ros
 
 [![industrial_ci](https://github.com/rt-net/crane_x7_ros/workflows/industrial_ci/badge.svg?branch=master)](https://github.com/rt-net/crane_x7_ros/actions?query=workflow%3Aindustrial_ci+branch%3Amaster)
