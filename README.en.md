@@ -1,5 +1,7 @@
 [English](README.en.md) | [日本語](README.md)
 
+This package was made changes to original [https://github.com/rt-net/crane_x7_ros] by team 5 that was 2020 Design and Production Theory 3 Intelligence Course in Chiba Institute of Technology .
+
 # crane_x7_ros
 
 [![industrial_ci](https://github.com/rt-net/crane_x7_ros/workflows/industrial_ci/badge.svg?branch=master)](https://github.com/rt-net/crane_x7_ros/actions?query=workflow%3Aindustrial_ci+branch%3Amaster)
