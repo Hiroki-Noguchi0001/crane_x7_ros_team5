@@ -42,8 +42,5 @@ include_directories(
 #############
 
 install(PROGRAMS
-  scripts/crane_x7_pick_and_place_demo.py
-  scripts/gripper_action_example.py
-  scripts/pose_groupstate_example.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
