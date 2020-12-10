@@ -27,10 +27,7 @@ def joint_move(joint_value,deg):
 
 
 def greet(data):
-    global flag
-    global trun
-    global robot
-    global arm
+    global flag, trun, arm
 
     if data.data == turn and flag :
         rospy.loginfo("Start Greet")
