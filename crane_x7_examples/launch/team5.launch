@@ -1,0 +1,6 @@
+<launch>
+  <node name="crane_x7_pick_and_place_controller" pkg="crane_x7_examples" type="robotdesign3_team5.py" required="true" output="screen" />
+  <node name="greet" pkg="crane_x7_examples" type="greet.py" required="true" output="screen" />
+  <node name="check" pkg="crane_x7_examples" type="check.py" required="true" output="screen" />
+  <node name="Grab" pkg="crane_x7_examples" type="grab.py" required="true" output="screen" />
+</launch>
