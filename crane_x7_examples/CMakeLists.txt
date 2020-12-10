@@ -44,3 +44,7 @@ include_directories(
 install(PROGRAMS
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+add_executable(image scripts/color_detection.cpp)
+target_link_libraries(image ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
