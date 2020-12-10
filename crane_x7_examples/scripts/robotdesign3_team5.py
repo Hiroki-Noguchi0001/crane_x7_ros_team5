@@ -7,7 +7,21 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
+
+import rospy
+from std_msgs.msg import Int32
+
+Moveflag = 0
+
+def order(data):
+    global Moveflag
+    Moveflag = data.data  
+
 def main():
+    # --------------------
+    rospy.init_node("crane_x7_pick_and_place_controller", anonymous=True)
+    pub = rospy.Publisher("number", Int32, queue_size=1)
+    sub = rospy.Subscriber("report", Int32, order)
     # --------------------
     # はんこ
     seal_x = 0.30           # x座標[m]
@@ -60,7 +74,6 @@ def main():
     hand_open = math.pi/4   # ハンド 開く角度[rad]
     ofset_exec_speed = 0.1  # 実行速度 
     # --------------------
-    rospy.init_node("crane_x7_pick_and_place_controller")
     robot = moveit_commander.RobotCommander()
     arm = moveit_commander.MoveGroupCommander("arm")
     arm.set_max_velocity_scaling_factor(ofset_exec_speed)
@@ -92,24 +105,6 @@ def main():
         arm.set_joint_value_target(target_joint_values)
         arm.go()
     # --------------------
-    """
-    # 複数関節の角度[deg]を指定し動かす関数
-    def joints_moves_deg(deg):
-        target_joint_values = arm.get_current_joint_values() # 現在角度をベースに、目標角度を作成する
-        for i in range(7):
-            target_joint_values[i] = arm.get_current_joint_values()[i] + math.radians(deg[i])
-            arm.set_joint_value_target(target_joint_values)
-        arm.go()
-    # --------------------
-    # 複数関節の角度[rad]を指定し動かす関数
-    def joints_moves_rad(rad):
-        target_joint_values = arm.get_current_joint_values() # 現在角度をベースに、目標角度を作成する
-        for i in range(7):
-            target_joint_values[i] = arm.get_current_joint_values()[i] + rad[i]
-            arm.set_joint_value_target(target_joint_values)
-        arm.go()
-    """
-    # --------------------
     while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
         rospy.sleep(1.0)
     rospy.sleep(1.0)
@@ -124,34 +119,14 @@ def main():
     arm_initial_pose = arm.get_current_pose().pose
     print("Arm initial pose:")
     print(arm_initial_pose)
-    # --------------------
-    # 担当 Shirasu Kazuki
-    # はじめの挨拶
-    arm.set_named_target("vertical")
-    arm.go()
+    
+    # 挨拶
+    pub.publish(1)
+    while Moveflag != 1 :
+        pass
 
-    joint_move(3,-45)
-    rospy.sleep(1.0)
+    pub.publish(2)
 
-    arm.set_named_target("vertical")
-    arm.go()
-    rospy.sleep(1.0)
-
-    joint_move(2,-45)
-    joint_move(3,-45)
-    rospy.sleep(1.0)
-
-    arm.set_named_target("vertical")
-    arm.go()
-    rospy.sleep(1.0)
-
-    joint_move(2,45)
-    joint_move(3,-45)
-    rospy.sleep(1.0)
-
-    arm.set_named_target("vertical")
-    arm.go()
-    rospy.sleep(1.0)
     # --------------------
     # SRDFに定義されている"home"の姿勢にする
     arm.set_named_target("home")
@@ -261,7 +236,6 @@ def main():
         arm.set_joint_value_target(target_joint_values)
         arm.go()
         degree -= 6
-
         joint_angle = math.radians(degree)
         target_joint_values[5] = joint_angle
         arm.set_joint_value_target(target_joint_values)
@@ -301,21 +275,6 @@ def main():
     arm.set_named_target("home")
     arm.go()
 
-    print("上向きに")
-    arm.set_named_trget("vertical")
-    arm.go()
-
-    joint_move(4,0)
-
-    print("ガッツポーズ")
-    joint_move(5,70)
-    joint_move(1,32)
-    joint_move(3,-100)
-    rospy.sleep(1.0)
-
-    arm.set_named_traget("home")
-    arm.go()
-   # --------------------
 if __name__ == '__main__':
 
     try:
