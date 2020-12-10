@@ -113,33 +113,12 @@ def main():
     while Moveflag != 2 :
         pass
     # --------------------
-    pub.publish(3)
-    """
-    # SRDFに定義されている"home"の姿勢にする
-    arm.set_named_target("home")
-    arm.go()
-    """
-    print("ハンドを開く")
-    hand_move(hand_open)
-    #--------------------
-    # 担当 Kubotera Masato
     # はんこを掴む
-
-    print("はんこ上まで移動")
-    # arm_move(seal_x, seal_y, seal_before_z)
-    # joints_moves_rad([-0.110369,-1.1134585,-0.628,-0.485947,-1.57774728,0.2205,-0.38])
-    arm.set_named_target("pick_seal_position")
-    arm.go()
-
-    print("はんこを掴む位置まで移動")
-    arm_move(seal_x, seal_y, seal_z)
-
-    print("はんこを掴む")
-    hand_move(seal_close)
-
-    print("はんこを持ち上げる")
-    arm_move(seal_x, seal_y, seal_after_z)
+    pub.publish(3)
+    while Moveflag != 3 :
+        pass
     # --------------------
+    pub.publish(4)
     # 担当 Kubotera Masato
     print ("朱肉につけ確認する動作")
     for i in range(2):
