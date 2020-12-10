@@ -119,26 +119,22 @@ def main():
     arm_initial_pose = arm.get_current_pose().pose
     print("Arm initial pose:")
     print(arm_initial_pose)
-    
+    # --------------------
     # 挨拶
     pub.publish(1)
     while Moveflag != 1 :
         pass
-
-    pub.publish(2)
-
     # --------------------
     # SRDFに定義されている"home"の姿勢にする
     arm.set_named_target("home")
     arm.go()
     # --------------------
-    # 担当 Takahashi Naoya
-    print("右に移動")
-    arm_move(0.24, 0.10, 0.2)
-
-    print("左に移動")
-    arm_move(0.24, 0.0, 0.2)    
+    # 文書確認
+    pub.publish(2)
+    while Moveflag != 2 :
+        pass
     # --------------------
+    pub.publish(3)
     """
     # SRDFに定義されている"home"の姿勢にする
     arm.set_named_target("home")
