@@ -3,11 +3,15 @@ project(crane_x7_examples)
 
 find_package(catkin REQUIRED COMPONENTS
   rospy
+  roscpp
   std_msgs
   geometry_msgs
   message_generation
+  sensor_msgs
+  cv_bridge
+  image_transport
 )
-
+find_package(OpenCV REQUIRED)
 add_service_files(FILES ObstacleAvoidance.srv)
 generate_messages(DEPENDENCIES std_msgs geometry_msgs)
 
