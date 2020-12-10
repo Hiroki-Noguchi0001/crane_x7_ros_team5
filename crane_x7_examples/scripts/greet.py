@@ -87,7 +87,7 @@ def main():
 
 
 if __name__ == '__main__':
-    rospy.init_node("greeting", anonymous=True)
+    rospy.init_node("greet", anonymous=True)
     try:
         if not rospy.is_shutdown():
             main()
