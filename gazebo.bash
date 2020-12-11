@@ -10,11 +10,11 @@ if [ -d "/home/$USERNAME/.gazebo/models" ]; then
 
     if [ -d "/home/$USERNAME/.gazebo/models/asstseal_model" ]; then
         cd /home/$USERNAME/.gazebo/models/asstseal_model
-        echo "はんこモデル リポジトリを更新します"
+        echo "上田はんこモデル リポジトリを更新します"
         git pull
     else
         cd /home/$USERNAME/.gazebo/models
-        echo "はんこモデル リポジトリをクローンします"
+        echo "上田はんこモデル リポジトリをクローンします"
         git clone https://github.com/RobotDesign3-Team5/asstseal_model.git
     fi
 
@@ -64,5 +64,17 @@ if [ -d "/home/$USERNAME/.gazebo/models" ]; then
         cd /home/$USERNAME/.gazebo/models
         echo "ティッシュペーパーモデル リポジトリをクローンします"
         git clone https://github.com/RobotDesign3-Team5/TissuePaper_model.git
+    fi
+
+    echo -n -e "\n"
+
+    if [ -d "/home/$USERNAME/.gazebo/models/colorseal_model" ]; then
+        cd /home/$USERNAME/.gazebo/models/colorseal_model
+        echo "はんこモデル リポジトリを更新します"
+        git pull
+    else
+        cd /home/$USERNAME/.gazebo/models
+        echo "はんこモデル リポジトリをクローンします"
+        git clone https://github.com/MasatoKubotera/colorseal_model.git
     fi
 fi
