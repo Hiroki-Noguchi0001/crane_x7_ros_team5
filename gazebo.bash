@@ -46,11 +46,11 @@ if [ -d "/home/$USERNAME/.gazebo/models" ]; then
 
     if [ -d "/home/$USERNAME/.gazebo/models/sealmat_model" ]; then
         cd /home/$USERNAME/.gazebo/models/sealmat_model
-        echo "はんこモデル リポジトリを更新します"
+        echo "はんこマットモデル リポジトリを更新します"
         git pull
     else
         cd /home/$USERNAME/.gazebo/models
-        echo "はんこモデル リポジトリをクローンします"
+        echo "はんこマットモデル リポジトリをクローンします"
         git clone https://github.com/RobotDesign3-Team5/sealmat_model.git
     fi
 
@@ -69,7 +69,7 @@ if [ -d "/home/$USERNAME/.gazebo/models" ]; then
     echo -n -e "\n"
 
     if [ -d "/home/$USERNAME/.gazebo/models/colorseal_model" ]; then
-        cd /home/$USERNAME/.gazebo/models/colorseal_model
+        cd /home/$USERNAME/.gazebo/models/colorseal_modelco
         echo "はんこモデル リポジトリを更新します"
         git pull
     else
