@@ -10,7 +10,7 @@ from tf.transformations import quaternion_from_euler
 from std_msgs.msg import Int32  # メッセージ型
 
 turn = 5    # 動作実行順序
-flag = True # 動作フラグ
+flag1 = True # 動作フラグ
 
 arm = moveit_commander.MoveGroupCommander("arm")
 
@@ -41,7 +41,7 @@ def joint_move(joint_value,deg):
 
 
 def seal(data):
-    global flag, trun, arm
+    global flag1, trun, arm
 
     put_x = 0.20            # x座標[m]
     put_y = 0.0             # y座標[m]
@@ -50,9 +50,9 @@ def seal(data):
     push_z = 0.008          # 押し込みz座標[m]
     put_after_z = 0.20      # 押す後  z座標[m]
 
-    if data.data == turn and flag :
+    if data.data == turn and flag1 :
         rospy.loginfo("Start Seal")
-        flag = False
+        flag1 = False
         # -------------------
         pub = rospy.Publisher("report", Int32, queue_size = 1) # 動作報告パブリッシャ
         # -------------------
@@ -83,7 +83,7 @@ def seal(data):
         # --------------------
 
     if data.data == turn :
-        flag = True
+        flag1 = True
 
 
 def main():

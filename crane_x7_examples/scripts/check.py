@@ -54,7 +54,11 @@ def check(data):
         # 文書確認の動作
         arm_move(0.24, 0.10, 0.2)
 
-        arm_move(0.24, 0.0, 0.2)  
+        arm_move(0.24, 0.0, 0.2) 
+
+        # SRDFに定義されている"home"の姿勢にする
+        arm.set_named_target("home")
+        arm.go()
         # --------------------
         # 動作終了報告
         pub.publish(turn)

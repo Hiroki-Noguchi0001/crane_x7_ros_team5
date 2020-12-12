@@ -86,10 +86,6 @@ def main():
     while Moveflag != 1 :
         pass
     # --------------------
-    # SRDFに定義されている"home"の姿勢にする
-    arm.set_named_target("home")
-    arm.go()
-    # --------------------
     # 文書確認
     pub.publish(2)
     while Moveflag != 2 :
@@ -115,18 +111,13 @@ def main():
     while Moveflag != 6 :
         pass
     # --------------------
+    # はんこを戻す
     pub.publish(7)
-    print("はんこ上まで移動")
-    # arm_move(seal_x, seal_y, seal_before_z)
-    # joints_moves_rad([-0.110369,-1.1134585,-0.628,-0.485947,-1.57774728,0.2205,-0.38])
-    arm.set_named_target("pick_seal_position")
-    arm.go()
+    while Moveflag != 7 :
+        pass
+    # --------------------
+    pub.publish(0)
 
-    print("はんこをはなす位置まで移動")
-    arm_move(seal_x, seal_y, seal_z)
-
-    print("はんこをはなす")
-    hand_move(hand_open)
 
     # SRDFに定義されている"home"の姿勢にする
     arm.set_named_target("home")
