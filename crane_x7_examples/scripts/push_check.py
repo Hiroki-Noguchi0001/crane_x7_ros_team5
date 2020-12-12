@@ -9,11 +9,10 @@ import math
 from tf.transformations import quaternion_from_euler
 from std_msgs.msg import Int32  # メッセージ型
 
-turn = 3    # 動作実行順序
+turn = 4    # 動作実行順序
 flag = True # 動作フラグ
 
 arm = moveit_commander.MoveGroupCommander("arm")
-gripper = moveit_commander.MoveGroupCommander("gripper")
 
 arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 
@@ -33,26 +32,28 @@ def arm_move(x,y,z):
     arm.go()
 
 
-# ハンドの角度[rad]を指定し動かす関数
-def hand_move(rad):
-    gripper.set_joint_value_target([rad, rad])
-    gripper.go()
+# 指定関節の角度[deg]を指定し動かす関数
+def joint_move(joint_value,deg):
+    target_joint_values = arm.get_current_joint_values() # 現在角度をベースに、目標角度を作成する
+    target_joint_values[joint_value] = arm.get_current_joint_values()[joint_value] + math.radians(deg)
+    arm.set_joint_value_target(target_joint_values)
+    arm.go()
 
 
-def grab(data):
+def Push_Check(data):
     global flag, trun, arm
 
-    seal_x = 0.30           # x座標[m]
-    seal_y = -0.15          # y座標[m]
-    seal_before_z = 0.30    # 掴む前  Z座標[m]
-    seal_z = 0.135          # 掴む    Z座標[m]
-    seal_after_z = 0.30     # 掴む後  Z座標[m]
-    seal_close = 0.10       # 掴む角度[rad]
+    inkpad_x = 0.20         # x座標[m]
+    inkpad_y = -0.15        # y座標[m]
+    inkpad_before_z = 0.30  # 押す前  z座標[m]
+    inkpad_z = 0.13         # 押す    z座標[m]
+    inkpad_after_z = 0.30   # 押す後  z座標[m]
 
-    hand_open = math.pi/4   # ハンド 開く角度[rad]
+    inkpad_up_z = 0.01      # ポンポンする高さ[m]
+    check_deg = 50          # 確認時回転角度[deg]
 
     if data.data == turn and flag :
-        rospy.loginfo("Start Grab")
+        rospy.loginfo("Start Push and Check")
         flag = False
         # -------------------
         pub = rospy.Publisher("report", Int32, queue_size = 1) # 動作報告パブリッシャ
@@ -67,22 +68,27 @@ def grab(data):
         # --------------------
         arm_initial_pose = arm.get_current_pose().pose # アーム初期ポーズを表示
         # --------------------
-        # 掴むの動作
-        hand_move(hand_open)    # ハンドを開く
+        # 朱肉につけ確認する
+        for i in range(2):
+            arm_move(inkpad_x, inkpad_y, inkpad_before_z)
+            # --------------------
+            # 朱肉にはんこを数回押し付ける
+            arm.set_max_velocity_scaling_factor(1.0)
+            arm_move(inkpad_x, inkpad_y, inkpad_z)
+            for j in range(2):
+                arm_move(inkpad_x, inkpad_y, inkpad_z + inkpad_up_z)
+                arm_move(inkpad_x, inkpad_y, inkpad_z)
+            # --------------------
+            arm.set_max_velocity_scaling_factor(0.1)
+            # 持ち上げる
+            arm_move(inkpad_x, inkpad_y, inkpad_after_z)
 
-        # arm_move(seal_x, seal_y, seal_before_z)   # はんこ上まで移動
-        arm.set_named_target("pick_seal_position") 
-        arm.go()
-
-        arm_move(seal_x, seal_y, seal_z)    # はんこを掴む位置まで移動
-
-        hand_move(seal_close)   # はんこを掴む
-
-        arm_move(seal_x, seal_y, seal_after_z)  # はんこを持ち上げる
+            # 確認する
+            joint_move(4,check_deg)
         # --------------------
         # 動作終了報告
         pub.publish(turn)
-        rospy.loginfo("Finish Grab")
+        rospy.loginfo("Finish Push and Check")
         # --------------------
 
     if data.data == turn :
@@ -90,12 +96,12 @@ def grab(data):
 
 
 def main():
-    sub = rospy.Subscriber("number", Int32, grab) # 動作指示サブスクライバ
+    sub = rospy.Subscriber("number", Int32, Push_Check) # 動作指示サブスクライバ
     rospy.spin()
 
 
 if __name__ == '__main__':
-    rospy.init_node("Grab", anonymous=True)
+    rospy.init_node("Push_Check", anonymous=True)
     try:
         if not rospy.is_shutdown():
             main()

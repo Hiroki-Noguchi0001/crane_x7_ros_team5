@@ -3,4 +3,5 @@
   <node name="greet" pkg="crane_x7_examples" type="greet.py" required="true" output="screen" />
   <node name="check" pkg="crane_x7_examples" type="check.py" required="true" output="screen" />
   <node name="Grab" pkg="crane_x7_examples" type="grab.py" required="true" output="screen" />
+  <node name="Push_Check" pkg="crane_x7_examples" type="push_check.py" required="true" output="screen" />
 </launch>

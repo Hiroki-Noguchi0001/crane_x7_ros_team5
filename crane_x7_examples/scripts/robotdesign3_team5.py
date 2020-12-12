@@ -31,16 +31,6 @@ def main():
     seal_after_z = 0.30     # 掴む後  Z座標[m]
     seal_close = 0.10       # 掴む角度[rad]
     # --------------------
-    # 朱肉
-    inkpad_x = 0.20         # x座標[m]
-    inkpad_y = -0.15        # y座標[m]
-    inkpad_before_z = 0.30  # 押す前  z座標[m]
-    inkpad_z = 0.13         # 押す    z座標[m]
-    inkpad_after_z = 0.30   # 押す後  z座標[m]
-
-    inkpad_up_z = 0.01      # ポンポンする高さ[m]
-    check_deg = 50          # 確認時回転角度[deg]
-    # --------------------
     # 捺印
     put_x = 0.20            # x座標[m]
     put_y = 0.0             # y座標[m]
@@ -118,26 +108,12 @@ def main():
     while Moveflag != 3 :
         pass
     # --------------------
+    # 朱肉につけ確認する
     pub.publish(4)
-    # 担当 Kubotera Masato
-    print ("朱肉につけ確認する動作")
-    for i in range(2):
-        arm_move(inkpad_x, inkpad_y, inkpad_before_z)
-        # --------------------
-        # 朱肉にはんこを数回押し付ける
-        arm.set_max_velocity_scaling_factor(1.0)
-        arm_move(inkpad_x, inkpad_y, inkpad_z)
-        for j in range(2):
-            arm_move(inkpad_x, inkpad_y, inkpad_z + inkpad_up_z)
-            arm_move(inkpad_x, inkpad_y, inkpad_z)
-        # --------------------
-        arm.set_max_velocity_scaling_factor(ofset_exec_speed)
-        # 持ち上げる
-        arm_move(inkpad_x, inkpad_y, inkpad_after_z)
-
-        # 確認する
-        joint_move(4,check_deg)
+    while Moveflag != 4 :
+        pass
     # --------------------
+    pub.publish(5)
     print("捺印場所に移動")
     # arm_move(put_x, put_y, put_before_z)
     arm.set_named_target("before_stamping_position")
