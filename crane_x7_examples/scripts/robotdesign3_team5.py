@@ -110,20 +110,12 @@ def main():
     while Moveflag != 5 :
         pass
     # --------------------
+    # 拭く
     pub.publish(6)
-    # 担当 Shirasu Kazuki
-    print("はんこをティッシュの上まで移動")
-    arm_move(0.20, 0.30, 0.2)
-
-    print("はんこをティッシュで拭く")
-    arm_move(0.20, 0.30, 0.12)
-    arm_move(0.22, 0.30, 0.12)
-    arm_move(0.20, 0.30, 0.12)
-    arm_move(0.18, 0.30, 0.12)
-
-    print("はんこを上げる")
-    arm_move(0.20, 0.30, 0.2)
+    while Moveflag != 6 :
+        pass
     # --------------------
+    pub.publish(7)
     print("はんこ上まで移動")
     # arm_move(seal_x, seal_y, seal_before_z)
     # joints_moves_rad([-0.110369,-1.1134585,-0.628,-0.485947,-1.57774728,0.2205,-0.38])
