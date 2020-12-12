@@ -75,6 +75,6 @@ if [ -d "/home/$USERNAME/.gazebo/models" ]; then
     else
         cd /home/$USERNAME/.gazebo/models
         echo "はんこモデル リポジトリをクローンします"
-        git clone https://github.com/MasatoKubotera/colorseal_model.git
+        git clone https://github.com/RobotDesign3-Team5/colorseal_model.git
     fi
 fi
