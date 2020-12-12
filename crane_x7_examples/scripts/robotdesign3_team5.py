@@ -31,14 +31,6 @@ def main():
     seal_after_z = 0.30     # 掴む後  Z座標[m]
     seal_close = 0.10       # 掴む角度[rad]
     # --------------------
-    # 捺印
-    put_x = 0.20            # x座標[m]
-    put_y = 0.0             # y座標[m]
-    put_before_z = 0.20     # 押す前  z座標[m]
-    put_z = 0.12            # 押す    z座標[m]
-    push_z = 0.008          # 押し込みz座標[m]
-    put_after_z = 0.20      # 押す後  z座標[m]
-    # -------------------
     # 初期設定
     hand_open = math.pi/4   # ハンド 開く角度[rad]
     ofset_exec_speed = 0.1  # 実行速度 
@@ -113,21 +105,12 @@ def main():
     while Moveflag != 4 :
         pass
     # --------------------
+    # 捺印
     pub.publish(5)
-    print("捺印場所に移動")
-    # arm_move(put_x, put_y, put_before_z)
-    arm.set_named_target("before_stamping_position")
-    arm.go()
-
-    print("はんこを押す")
-    arm_move(put_x, put_y, put_z)
-    arm_move(put_x, put_y, put_z - push_z)
-    arm_move(put_x, put_y, put_z)
-    rospy.sleep(0.5)
+    while Moveflag != 5 :
+        pass
     # --------------------
-    print("はんこを上げる")
-    arm_move(put_x, put_y, put_after_z)
-    # --------------------
+    pub.publish(6)
     # 担当 Shirasu Kazuki
     print("はんこをティッシュの上まで移動")
     arm_move(0.20, 0.30, 0.2)
