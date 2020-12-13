@@ -10,11 +10,11 @@ if [ -d "/home/$USERNAME/.gazebo/models" ]; then
 
     if [ -d "/home/$USERNAME/.gazebo/models/asstseal_model" ]; then
         cd /home/$USERNAME/.gazebo/models/asstseal_model
-        echo "はんこモデル リポジトリを更新します"
+        echo "上田はんこモデル リポジトリを更新します"
         git pull
     else
         cd /home/$USERNAME/.gazebo/models
-        echo "はんこモデル リポジトリをクローンします"
+        echo "上田はんこモデル リポジトリをクローンします"
         git clone https://github.com/RobotDesign3-Team5/asstseal_model.git
     fi
 
@@ -46,11 +46,11 @@ if [ -d "/home/$USERNAME/.gazebo/models" ]; then
 
     if [ -d "/home/$USERNAME/.gazebo/models/sealmat_model" ]; then
         cd /home/$USERNAME/.gazebo/models/sealmat_model
-        echo "はんこモデル リポジトリを更新します"
+        echo "はんこマットモデル リポジトリを更新します"
         git pull
     else
         cd /home/$USERNAME/.gazebo/models
-        echo "はんこモデル リポジトリをクローンします"
+        echo "はんこマットモデル リポジトリをクローンします"
         git clone https://github.com/RobotDesign3-Team5/sealmat_model.git
     fi
 
@@ -68,37 +68,13 @@ if [ -d "/home/$USERNAME/.gazebo/models" ]; then
 
     echo -n -e "\n"
 
-    if [ -d "/home/$USERNAME/.gazebo/models/GlueStick_model" ]; then
-        cd /home/$USERNAME/.gazebo/models/GlueStick_model
-        echo "スティックのりモデル リポジトリを更新します"
+    if [ -d "/home/$USERNAME/.gazebo/models/colorseal_model" ]; then
+        cd /home/$USERNAME/.gazebo/models/colorseal_modelco
+        echo "はんこモデル リポジトリを更新します"
         git pull
     else
         cd /home/$USERNAME/.gazebo/models
-        echo "スティックのりモデル リポジトリをクローンします"
-        git clone https://github.com/RobotDesign3-Team5/GlueStick_model.git
-    fi
-    
-    echo -n -e "\n"
-
-    if [ -d "/home/$USERNAME/.gazebo/models/eraser_model" ]; then
-        cd /home/$USERNAME/.gazebo/models/eraser_model
-        echo "消しゴムモデル リポジトリを更新します"
-        git pull
-    else
-        cd /home/$USERNAME/.gazebo/models
-        echo "消しゴムモデル リポジトリをクローンします"
-        git clone https://github.com/RobotDesign3-Team5/eraser_model.git
-    fi
-    
-    echo -n -e "\n"
-
-    if [ -d "/home/$USERNAME/.gazebo/models/battery_model" ]; then
-        cd /home/$USERNAME/.gazebo/models/battery_model
-        echo "電池モデル リポジトリを更新します"
-        git pull
-    else
-        cd /home/$USERNAME/.gazebo/models
-        echo "電池モデル リポジトリをクローンします"
-        git clone https://github.com/RobotDesign3-Team5/battery_model.git
+        echo "はんこモデル リポジトリをクローンします"
+        git clone https://github.com/RobotDesign3-Team5/colorseal_model.git
     fi
 fi

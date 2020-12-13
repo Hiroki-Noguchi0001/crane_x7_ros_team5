@@ -13,10 +13,9 @@
       <include>
         <uri>model://table</uri>
       </include>
-
-      <!-- X7を机の端に配置するため、机を移動、回転する -->
       <pose>0.29 0 0 0 0 1.5708</pose>
     </model>
+
 
     <!-- はんこ収納モデル -->
     <model name="storage_model">
@@ -26,13 +25,57 @@
        <pose>0.30 -0.15 1.0 0 0 0</pose>
     </model>
 
+    <model name="storage_model1">
+       <include>
+         <uri>model://storage_model</uri>
+       </include>
+       <pose>0.20 -0.25 1.0 0 0 0</pose>
+    </model>
+
+    <model name="storage_model2">
+       <include>
+         <uri>model://storage_model</uri>
+       </include>
+       <pose>0.10 -0.25 1.0 0 0 0</pose>
+    </model>
+
+    <model name="storage_model3">
+       <include>
+         <uri>model://storage_model</uri>
+       </include>
+       <pose>0 -0.25 1.0 0 0 0</pose>
+    </model>
+
+
     <!--補助具付 はんこモデル-->
     <model name="asstseal_model">
        <include>
          <uri>model://asstseal_model</uri>
        </include>
-       <pose>0.30 -0.15 1.02 0 0 0</pose>
+       <pose>0.30 -0.15 1.05 0 0 0</pose>
     </model>
+
+    <model name="colorseal_model1">
+       <include>
+         <uri>model://colorseal_model</uri>
+       </include>
+       <pose>0.20 -0.25 1.05 0 0 0</pose>
+    </model>
+
+    <model name="colorseal_model2">
+       <include>
+         <uri>model://asstseal_model</uri>
+       </include>
+       <pose>0.10 -0.25 1.05 0 0 0</pose>
+    </model>
+
+    <model name="colorseal_model3">
+       <include>
+         <uri>model://asstseal_model</uri>
+       </include>
+       <pose>0 -0.25 1.05 0 0 0</pose>
+    </model>
+
 
     <!-- はんこマットモデル -->
     <model name="sealmat_model">
@@ -56,30 +99,6 @@
          <uri>model://TissuePaper_model</uri>
        </include>
        <pose>0.20 0.30 1.0 0 0 0</pose>
-    </model>
-
-    <!-- スティックのりモデル -->
-    <model name="GlueStick_model">
-       <include>
-         <uri>model://GlueStick_model</uri>
-       </include>
-       <pose>0.00 -0.25 1.0 0 0 0</pose>
-    </model>
-
-    <!-- 消しゴムモデル -->
-    <model name="eraser_model">
-       <include>
-         <uri>model://eraser_model</uri>
-       </include>
-       <pose>0.10 -0.25 1.0 0 0 1.5708</pose>
-    </model>
-
-    <!-- 電池モデル -->
-    <model name="battery_model">
-       <include>
-         <uri>model://battery_model</uri>
-       </include>
-       <pose>0.20 -0.25 1.0 0 0 0</pose>
     </model>
 
     <model name="ground_plane">

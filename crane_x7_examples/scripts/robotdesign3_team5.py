@@ -7,7 +7,21 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
+
+import rospy
+from std_msgs.msg import Int32
+
+Moveflag = 0
+
+def order(data):
+    global Moveflag
+    Moveflag = data.data  
+
 def main():
+    # --------------------
+    rospy.init_node("crane_x7_pick_and_place_controller", anonymous=True)
+    pub = rospy.Publisher("number", Int32, queue_size=1)
+    sub = rospy.Subscriber("report", Int32, order)
     # --------------------
     # はんこ
     seal_x = 0.30           # x座標[m]
@@ -17,50 +31,10 @@ def main():
     seal_after_z = 0.30     # 掴む後  Z座標[m]
     seal_close = 0.10       # 掴む角度[rad]
     # --------------------
-    # 朱肉
-    inkpad_x = 0.20         # x座標[m]
-    inkpad_y = -0.15        # y座標[m]
-    inkpad_before_z = 0.30  # 押す前  z座標[m]
-    inkpad_z = 0.13         # 押す    z座標[m]
-    inkpad_after_z = 0.30   # 押す後  z座標[m]
-
-    inkpad_up_z = 0.01      # ポンポンする高さ[m]
-    check_deg = 50          # 確認時回転角度[deg]
-    # --------------------
-    # 捺印
-    put_x = 0.20            # x座標[m]
-    put_y = 0.0             # y座標[m]
-    put_before_z = 0.20     # 押す前  z座標[m]
-    put_z = 0.12            # 押す    z座標[m]
-    push_z = 0.008          # 押し込みz座標[m]
-    put_after_z = 0.20      # 押す後  z座標[m]
-    # -------------------
-    # GlueStick
-    glue_x = 0.00           # x座標[m]
-    glue_y = -0.25          # y座標[m]
-    glue_before_z = 0.30    # 選ぶ？前  z座標[m]
-    glue_z = 0.20           # 選ぶ？    z座標[m]
-    glue_after_z = 0.30     # 選ぶ？後  z座標[m]
-    # -------------------
-    # battery
-    battery_x = 0.20        # x座標[m]
-    battery_y = -0.25       # y座標[m]
-    battery_before_z =0.30  # 選ぶ？前  z座標[m]
-    battery_z = 0.12        # 選ぶ？    z座標[m]
-    battery_after_z = 0.30  # 選ぶ？後  z座標[m]
-    # -------------------
-    # eraser
-    eraser_x = 0.10          # x座標[m]
-    eraser_y = -0.25        # y座標[m]
-    eraser_before_z = 0.30  # 選ぶ？前  z座標[m]
-    eraser_z = 0.12         # 選ぶ？    z座標[m]
-    eraser_after_z = 0.30   # 選ぶ？後  z座標[m]
-    # -------------------
     # 初期設定
     hand_open = math.pi/4   # ハンド 開く角度[rad]
     ofset_exec_speed = 0.1  # 実行速度 
     # --------------------
-    rospy.init_node("crane_x7_pick_and_place_controller")
     robot = moveit_commander.RobotCommander()
     arm = moveit_commander.MoveGroupCommander("arm")
     arm.set_max_velocity_scaling_factor(ofset_exec_speed)
@@ -92,24 +66,6 @@ def main():
         arm.set_joint_value_target(target_joint_values)
         arm.go()
     # --------------------
-    """
-    # 複数関節の角度[deg]を指定し動かす関数
-    def joints_moves_deg(deg):
-        target_joint_values = arm.get_current_joint_values() # 現在角度をベースに、目標角度を作成する
-        for i in range(7):
-            target_joint_values[i] = arm.get_current_joint_values()[i] + math.radians(deg[i])
-            arm.set_joint_value_target(target_joint_values)
-        arm.go()
-    # --------------------
-    # 複数関節の角度[rad]を指定し動かす関数
-    def joints_moves_rad(rad):
-        target_joint_values = arm.get_current_joint_values() # 現在角度をベースに、目標角度を作成する
-        for i in range(7):
-            target_joint_values[i] = arm.get_current_joint_values()[i] + rad[i]
-            arm.set_joint_value_target(target_joint_values)
-        arm.go()
-    """
-    # --------------------
     while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
         rospy.sleep(1.0)
     rospy.sleep(1.0)
@@ -125,197 +81,48 @@ def main():
     print("Arm initial pose:")
     print(arm_initial_pose)
     # --------------------
-    # 担当 Shirasu Kazuki
-    # はじめの挨拶
-    arm.set_named_target("vertical")
-    arm.go()
-
-    joint_move(3,-45)
-    rospy.sleep(1.0)
-
-    arm.set_named_target("vertical")
-    arm.go()
-    rospy.sleep(1.0)
-
-    joint_move(2,-45)
-    joint_move(3,-45)
-    rospy.sleep(1.0)
-
-    arm.set_named_target("vertical")
-    arm.go()
-    rospy.sleep(1.0)
-
-    joint_move(2,45)
-    joint_move(3,-45)
-    rospy.sleep(1.0)
-
-    arm.set_named_target("vertical")
-    arm.go()
-    rospy.sleep(1.0)
+    # 挨拶
+    pub.publish(1)
+    while Moveflag != 1 :
+        pass
     # --------------------
-    # SRDFに定義されている"home"の姿勢にする
-    arm.set_named_target("home")
-    arm.go()
+    # 文書確認
+    pub.publish(2)
+    while Moveflag != 2 :
+        pass
     # --------------------
-    # 担当 Takahashi Naoya
-    print("右に移動")
-    arm_move(0.24, 0.10, 0.2)
-
-    print("左に移動")
-    arm_move(0.24, 0.0, 0.2)    
-    # --------------------
-    """
-    # SRDFに定義されている"home"の姿勢にする
-    arm.set_named_target("home")
-    arm.go()
-    """
-    print("ハンドを開く")
-    hand_move(hand_open)
-    # --------------------
-    # 担当 Shu Kouki
-    # はんこを選ぶ
-    print("消しゴムの上へ移動する")
-    arm_move(eraser_x, eraser_y, eraser_before_z)
-
-    print("消しゴムを掴みそうな位置まで移動")
-    arm_move(eraser_x, eraser_y, eraser_z)
-
-    print("消しゴムの上へ戻る")
-    arm_move(eraser_x, eraser_y, eraser_z)
-
-    print("スティックのり上まで移動")
-    arm_move(glue_x, glue_y, glue_before_z)
-	
-    print("スティックのりを掴みそうな位置まで移動")
-    arm_move(glue_x, glue_y, glue_z)
-
-    print("スティックのり上へ戻る")
-    arm_move(glue_x, glue_y, glue_after_z)
-
-    print("電池の上へ移動")
-    arm_move(battery_x, battery_y, battery_before_z)
-
-    print("電池を掴みそうな位置まで移動")
-    arm_move(battery_x, battery_y, battery_z)
-
-    print("電池の上へ戻る")
-    arm_move(battery_x, battery_y, battery_after_z)
-    #--------------------
-    # 担当 Kubotera Masato
     # はんこを掴む
-
-    print("はんこ上まで移動")
-    # arm_move(seal_x, seal_y, seal_before_z)
-    # joints_moves_rad([-0.110369,-1.1134585,-0.628,-0.485947,-1.57774728,0.2205,-0.38])
-    arm.set_named_target("pick_seal_position")
-    arm.go()
-
-    print("はんこを掴む位置まで移動")
-    arm_move(seal_x, seal_y, seal_z)
-
-    print("はんこを掴む")
-    hand_move(seal_close)
-
-    print("はんこを持ち上げる")
-    arm_move(seal_x, seal_y, seal_after_z)
+    pub.publish(3)
+    while Moveflag != 3 :
+        pass
     # --------------------
-    # 担当 Kubotera Masato
-    print ("朱肉につけ確認する動作")
-    for i in range(2):
-        arm_move(inkpad_x, inkpad_y, inkpad_before_z)
-        # --------------------
-        # 朱肉にはんこを数回押し付ける
-        arm.set_max_velocity_scaling_factor(1.0)
-        arm_move(inkpad_x, inkpad_y, inkpad_z)
-        for j in range(2):
-            arm_move(inkpad_x, inkpad_y, inkpad_z + inkpad_up_z)
-            arm_move(inkpad_x, inkpad_y, inkpad_z)
-        # --------------------
-        arm.set_max_velocity_scaling_factor(ofset_exec_speed)
-        # 持ち上げる
-        arm_move(inkpad_x, inkpad_y, inkpad_after_z)
-
-        # 確認する
-        joint_move(4,check_deg)
+    # 朱肉につけ確認する
+    pub.publish(4)
+    while Moveflag != 4 :
+        pass
     # --------------------
-    print("捺印場所に移動")
-    # arm_move(put_x, put_y, put_before_z)
-    arm.set_named_target("before_stamping_position")
-    arm.go()
-
-    print("はんこを押す")
-    arm_move(put_x, put_y, put_z)
-    arm_move(put_x, put_y, put_z - push_z)
-    arm_move(put_x, put_y, put_z)
-    rospy.sleep(0.5)
+    # 捺印
+    pub.publish(5)
+    while Moveflag != 5 :
+        pass
     # --------------------
-    # 担当 Yokoo Riku
-    # 印鑑グリグリ
-    """
-    degree = math.degrees(arm.get_current_joint_values()[5])
-    degree += 3
-    for i in range(2):
-        target_joint_values = arm.get_current_joint_values()
-        joint_angle = math.radians(degree)
-        target_joint_values[5] = joint_angle
-        arm.set_joint_value_target(target_joint_values)
-        arm.go()
-        degree -= 6
-
-        joint_angle = math.radians(degree)
-        target_joint_values[5] = joint_angle
-        arm.set_joint_value_target(target_joint_values)
-        arm.go()
-        degree += 6
-    """
-    #-------------------------------
-    print("はんこを上げる")
-    arm_move(put_x, put_y, put_after_z)
+    # 拭く
+    pub.publish(6)
+    while Moveflag != 6 :
+        pass
     # --------------------
-    # 担当 Shirasu Kazuki
-    print("はんこをティッシュの上まで移動")
-    arm_move(0.20, 0.30, 0.2)
-
-    print("はんこをティッシュで拭く")
-    arm_move(0.20, 0.30, 0.12)
-    arm_move(0.22, 0.30, 0.12)
-    arm_move(0.20, 0.30, 0.12)
-    arm_move(0.18, 0.30, 0.12)
-
-    print("はんこを上げる")
-    arm_move(0.20, 0.30, 0.2)
+    # はんこを戻す
+    pub.publish(7)
+    while Moveflag != 7 :
+        pass
     # --------------------
-    print("はんこ上まで移動")
-    # arm_move(seal_x, seal_y, seal_before_z)
-    # joints_moves_rad([-0.110369,-1.1134585,-0.628,-0.485947,-1.57774728,0.2205,-0.38])
-    arm.set_named_target("pick_seal_position")
-    arm.go()
+    pub.publish(0)
 
-    print("はんこをはなす位置まで移動")
-    arm_move(seal_x, seal_y, seal_z)
-
-    print("はんこをはなす")
-    hand_move(hand_open)
 
     # SRDFに定義されている"home"の姿勢にする
     arm.set_named_target("home")
     arm.go()
 
-    print("上向きに")
-    arm.set_named_trget("vertical")
-    arm.go()
-
-    joint_move(4,0)
-
-    print("ガッツポーズ")
-    joint_move(5,70)
-    joint_move(1,32)
-    joint_move(3,-100)
-    rospy.sleep(1.0)
-
-    arm.set_named_traget("home")
-    arm.go()
-   # --------------------
 if __name__ == '__main__':
 
     try:
