@@ -156,7 +156,7 @@ def main():
     # --------------------
 
     print("上向きに")
-    arm.set_name_traget("vertical")
+    arm.set_named_target("vertical")
     arm.go()
 
     joint_move(4,0)
