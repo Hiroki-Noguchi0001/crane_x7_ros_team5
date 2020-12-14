@@ -78,6 +78,12 @@ def main():
     arm_initial_pose = arm.get_current_pose().pose
     print("Arm initial pose:")
     print(arm_initial_pose)
+    # --------------------    
+    # 挨拶
+    pub.publish(1)
+    while Moveflag != 1 :
+        pass
+    
     # --------------------
     # 担当 Mibuchi Yuta
     # 紙を見つけてたくらむ
@@ -91,11 +97,6 @@ def main():
     
     arm.set_named_target("home")
     arm.go()
-    # --------------------    
-    # 挨拶
-    pub.publish(1)
-    while Moveflag != 1 :
-        pass
     # --------------------
     # 文書確認
     pub.publish(2)
