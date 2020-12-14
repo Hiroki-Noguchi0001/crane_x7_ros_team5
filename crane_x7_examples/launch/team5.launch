@@ -7,4 +7,5 @@
   <node name="Seal" pkg="crane_x7_examples" type="seal.py" required="true" output="screen" />
   <node name="Wipe" pkg="crane_x7_examples" type="wipe.py" required="true" output="screen" />
   <node name="Guts_Pose" pkg="crane_x7_examples" type="guts_pose.py" required="true" output="screen" />
+  <node name="Artifice" pkg="crane_x7_examples" type="artifice.py" required="true" output="screen" />
 </launch>

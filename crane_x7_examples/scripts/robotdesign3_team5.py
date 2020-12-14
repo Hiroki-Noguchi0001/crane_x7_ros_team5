@@ -58,26 +58,17 @@ def main():
     arm_initial_pose = arm.get_current_pose().pose
     print("Arm initial pose:")
     print(arm_initial_pose)
-    # -------------------- 
+    # --------------------
     # 挨拶
     pub.publish("Greet")
     while FinishFlag != True :
-        pass    
+        pass
     # --------------------
-    """
-    #紙を見つける
-    arm.set_named_target("home")
-    arm.go()
-    arm_move(0.2 , 0.05, 0.3)
-    
-    #周囲に誰もいないか確認
-    arm.set_named_target("home")
-    arm.go()
-    
-    joint_move(0,-80)
-    joint_move(0,160)
-    joint_move(0,-160)
-    """ 
+    # 悪さ
+    pub.publish("Artifice")
+    FinishFlag = False
+    while FinishFlag != True :
+        pass    
     # --------------------
     # もう一度文書確認
     pub.publish("Check")
