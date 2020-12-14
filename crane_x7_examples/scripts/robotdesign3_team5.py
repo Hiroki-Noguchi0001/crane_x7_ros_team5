@@ -31,6 +31,7 @@ def main():
     push_y2 = -0.20
     push_before_z = 0.20
     push_after_z = 0.12
+    hand_open = math.pi/4   # ハンド 開く角度[rad]
     # --------------------
     robot = moveit_commander.RobotCommander()
     arm = moveit_commander.MoveGroupCommander("arm")
