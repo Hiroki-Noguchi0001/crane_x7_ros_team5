@@ -55,9 +55,6 @@ def guts_pose(data):
         joint_move(1,30)
         joint_move(3,-100)
         rospy.sleep(1.0)
-
-        arm.set_named_target("home")
-        arm.go()
         # --------------------
         # 動作終了報告
         pub.publish(turn)
