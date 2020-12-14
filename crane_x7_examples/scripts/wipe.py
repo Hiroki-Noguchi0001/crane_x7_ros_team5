@@ -7,11 +7,11 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
+from std_msgs.msg import String  # メッセージ型
 from std_msgs.msg import Int32  # メッセージ型
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 
-turn = 6    # 動作実行順序
 flag = True # 動作フラグ
 
 arm = moveit_commander.MoveGroupCommander("arm")
@@ -20,7 +20,7 @@ arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 
 
 def wipe(data):
-    global flag, trun, arm
+    global flag, arm
 
     wipe_x = 0.20           # x座標[m]
     wipe_y = 0.30           # y座標[m]
@@ -28,7 +28,7 @@ def wipe(data):
     wipe_z = 0.12           # z座標[m]
     wipe_after_z = 0.2      # 拭いた後　z座標[m]
 
-    if data.data == turn and flag :
+    if data.data == "Wipe" and flag :
         rospy.loginfo("Start Wipe")
         flag = False
         # -------------------
@@ -52,13 +52,13 @@ def wipe(data):
         arm_move(wipe_x, wipe_y, wipe_after_z)
         # --------------------
         # 動作終了報告
-        pub.publish(turn)
+        pub.publish(True)
         rospy.loginfo("Finish Wipe")
         # --------------------
 
 
 def main():
-    sub = rospy.Subscriber("number", Int32, wipe) # 動作指示サブスクライバ
+    sub = rospy.Subscriber("name", String, wipe) # 動作指示サブスクライバ
     rospy.spin()
 
 

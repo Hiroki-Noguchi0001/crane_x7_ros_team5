@@ -7,13 +7,12 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
+from std_msgs.msg import String  # メッセージ型
 from std_msgs.msg import Int32  # メッセージ型
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 from move_def import hand_move  # ハンドの角度[rad]を指定し動かす関数
 
-turn1 = 3    # 動作実行順序1
-turn2 = 7    # 動作実行順序2
 flag1 = True # 動作フラグ1
 flag2 = True # 動作フラグ2
 
@@ -24,7 +23,7 @@ arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 
 
 def grab_release(data):
-    global flag1, trun1, flag2, trun2, arm
+    global flag1, flag2, arm
 
     seal_x = 0.30           # x座標[m]
     seal_y = -0.15          # y座標[m]
@@ -37,7 +36,7 @@ def grab_release(data):
 
     pub = rospy.Publisher("report", Int32, queue_size = 1) # 動作報告パブリッシャ
 
-    if data.data == turn1 and flag1 :
+    if data.data == "Grab" and flag1 :
         rospy.loginfo("Start Grab")
         flag1 = False
         # --------------------
@@ -61,17 +60,13 @@ def grab_release(data):
         arm_move(seal_x, seal_y, seal_after_z)  # はんこを持ち上げる
         # --------------------
         # 動作終了報告
-        pub.publish(turn1)
+        pub.publish(True)
         rospy.loginfo("Finish Grab")
         # --------------------
 
-    if data.data == turn2 and flag2 :
+    if data.data == "Release" and flag2 :
         rospy.loginfo("Start Release")
         flag2 = False
-        # -------------------
-        # 動作開始報告
-        report_num = turn2 - 1
-        pub.publish(report_num)
         # --------------------
         while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
             rospy.sleep(1.0)
@@ -90,13 +85,13 @@ def grab_release(data):
         hand_move(hand_open) # はんこをはなす
         # --------------------
         # 動作終了報告
-        pub.publish(turn2)
+        pub.publish(True)
         rospy.loginfo("Finish Release")
         # --------------------
 
 
 def main():
-    sub = rospy.Subscriber("number", Int32, grab_release) # 動作指示サブスクライバ
+    sub = rospy.Subscriber("name", String, grab_release) # 動作指示サブスクライバ
     rospy.spin()
 
 

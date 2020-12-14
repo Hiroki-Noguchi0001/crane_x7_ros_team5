@@ -9,22 +9,24 @@ import math
 from tf.transformations import quaternion_from_euler
 
 import rospy
+from std_msgs.msg import String  # メッセージ型
 from std_msgs.msg import Int32  # メッセージ型
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 from move_def import hand_move  # ハンドの角度[rad]を指定し動かす関数
 from move_def import joint_move # 指定関節の角度[deg]を指定し動かす関数
 
-Moveflag = 0
+FinishFlag = False
 
 def order(data):
-    global Moveflag
-    Moveflag = data.data  
+    global FinishFlag
+    FinishFlag = data.data  
 
 def main():
+    global FinishFlag 
     # --------------------
     rospy.init_node("crane_x7_pick_and_place_controller", anonymous=True)
-    pub = rospy.Publisher("number", Int32, queue_size=1)
+    pub = rospy.Publisher("name", String, queue_size=1)
     sub = rospy.Subscriber("report", Int32, order)
     # --------------------
     # 跳ね除ける
@@ -42,7 +44,6 @@ def main():
     arm.set_max_velocity_scaling_factor(0.1)
     gripper = moveit_commander.MoveGroupCommander("gripper")
     # --------------------
-
     while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
         rospy.sleep(1.0)
     rospy.sleep(1.0)
@@ -57,10 +58,10 @@ def main():
     arm_initial_pose = arm.get_current_pose().pose
     print("Arm initial pose:")
     print(arm_initial_pose)
-    # --------------------    
+    # -------------------- 
     # 挨拶
-    pub.publish(1)
-    while Moveflag != 1 :
+    pub.publish("Greet")
+    while FinishFlag != True :
         pass    
     # --------------------
     """
@@ -79,8 +80,9 @@ def main():
     """ 
     # --------------------
     # もう一度文書確認
-    pub.publish(2)
-    while Moveflag != 2 :
+    pub.publish("Check")
+    FinishFlag = False
+    while FinishFlag != True :
         pass
     # --------------------
     # 跳ね除ける
@@ -107,33 +109,39 @@ def main():
         push_y2 = push_y2 - 0.01
     # --------------------
     # はんこを掴む
-    pub.publish(3)
-    while Moveflag != 3 :
+    pub.publish("Grab")
+    FinishFlag = False
+    while FinishFlag != True :
         pass
     # --------------------
     # 朱肉につけ確認する
-    pub.publish(4)
-    while Moveflag != 4 :
+    pub.publish("PushCheck")
+    FinishFlag = False
+    while FinishFlag != True :
         pass
     # --------------------
     # 捺印
-    pub.publish(5)
-    while Moveflag != 5 :
+    pub.publish("Seal")
+    FinishFlag = False
+    while FinishFlag != True :
         pass
     # --------------------
     # 拭く
-    pub.publish(6)
-    while Moveflag != 6 :
+    pub.publish("Wipe")
+    FinishFlag = False
+    while FinishFlag != True :
         pass
     # --------------------
     # はんこを戻す
-    pub.publish(7)
-    while Moveflag != 7 :
+    pub.publish("Release")
+    FinishFlag = False
+    while FinishFlag != True :
         pass
     # --------------------
     # ガッツポーズ
-    pub.publish(8)
-    while Moveflag != 8 :
+    pub.publish("GutsPose")
+    FinishFlag = False
+    while FinishFlag != True :
         pass
     # --------------------
 
