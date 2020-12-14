@@ -86,13 +86,10 @@ def main():
     
     # --------------------
     
-    #紙を読む
-    arm_move(0.25, 0.05, 0.12)
-    arm_move(0.25, - 0.05, 0.12)
-    arm_move(0.20 , 0.05, 0.12)
-    arm_move(0.20 , -0.05, 0.12)
-    arm_move(0.15, 0.05, 0.12)
-    arm_move(0.15, -0.05, 0.12)
+    #紙を見つける
+    arm.set_named_target("home")
+    arm.go()
+    arm_move(0.2 , 0.05, 0.3)
     
     #周囲に誰もいないか確認
     arm.set_named_target("home")
