@@ -25,7 +25,7 @@ def main():
     # --------------------
     robot = moveit_commander.RobotCommander()
     arm = moveit_commander.MoveGroupCommander("arm")
-    arm.set_max_velocity_scaling_factor(ofset_exec_speed)
+    arm.set_max_velocity_scaling_factor(0.1)
     gripper = moveit_commander.MoveGroupCommander("gripper")
     # --------------------
     """
