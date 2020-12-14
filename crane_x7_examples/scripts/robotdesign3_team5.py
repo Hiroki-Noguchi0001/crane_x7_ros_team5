@@ -49,6 +49,15 @@ def main():
     print("Arm initial pose:")
     print(arm_initial_pose)
     # --------------------
+    ActionNames = ["Greet", "Artifice", "Check", "Exclusion", "Grab", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
+
+    for i in range(len(ActionNames)):
+        pub.publish(ActionNames[i])
+        FinishFlag = False
+        while FinishFlag != True :
+            pass
+    # --------------------
+    """
     # 挨拶
     pub.publish("Greet")
     while FinishFlag != True :
@@ -108,6 +117,7 @@ def main():
     while FinishFlag != True :
         pass
     # --------------------
+    """
 
 
 
