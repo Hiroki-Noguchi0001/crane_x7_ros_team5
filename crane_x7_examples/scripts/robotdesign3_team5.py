@@ -23,6 +23,15 @@ def main():
     pub = rospy.Publisher("number", Int32, queue_size=1)
     sub = rospy.Subscriber("report", Int32, order)
     # --------------------
+    # 跳ね除ける
+    push_x1 = 0
+    push_x2 = 0.10
+    push_x3 = 0.20
+    push_y1 = -0.25
+    push_y2 = -0.20
+    push_before_z = 0.20
+    push_after_z = 0.12
+    # --------------------
     robot = moveit_commander.RobotCommander()
     arm = moveit_commander.MoveGroupCommander("arm")
     arm.set_max_velocity_scaling_factor(0.1)
@@ -80,6 +89,29 @@ def main():
     pub.publish(2)
     while Moveflag != 2 :
         pass
+    # --------------------
+    # 跳ね除ける
+    arm.set_named_target("home")
+    arm.go()
+    arm_move(push_x1, push_y1, push_before_z)
+    hand_move(hand_open)
+    arm_move(push_x1, push_y1, push_after_z)
+    rospy.sleep(0.5)
+    arm_move(push_x1, push_y1, push_before_z)
+    for n in range(4):
+        if n % 2 == 0:
+            arm_move(push_x2, push_y1, push_before_z)
+            arm_move(push_x2, push_y1, push_after_z)
+            rospy.sleep(0.5)
+            arm_move(push_x2, push_y1, push_before_z)
+        else:
+            arm_move(push_x3, push_y1, push_before_z)
+            rospy.sleep(0.5)
+    hand_move(0.1)
+    arm_move(push_x3, push_y2, push_before_z)
+    for i in range(10):
+        arm_move(push_x3, push_y2, push_after_z)
+        push_y2 = push_y2 - 0.01
     # --------------------
     # はんこを掴む
     pub.publish(3)
