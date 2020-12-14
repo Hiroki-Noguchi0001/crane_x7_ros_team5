@@ -9,21 +9,15 @@ import math
 from tf.transformations import quaternion_from_euler
 from std_msgs.msg import Int32  # メッセージ型
 
+from move_def import arm_move   # 指定座標に手先を動かす関数
+from move_def import joint_move # 指定関節の角度[deg]を指定し動かす関数
+
 turn = 8    # 動作実行順序
 flag = True # 動作フラグ
 
 arm = moveit_commander.MoveGroupCommander("arm")
 
 arm.set_max_velocity_scaling_factor(0.1) # 実行速度
-
-
-# 指定関節の角度[deg]を指定し動かす関数
-def joint_move(joint_value,deg):
-    global arm
-    target_joint_values = arm.get_current_joint_values() # 現在角度をベースに、目標角度を作成する
-    target_joint_values[joint_value] = arm.get_current_joint_values()[joint_value] + math.radians(deg)
-    arm.set_joint_value_target(target_joint_values)
-    arm.go()
 
 
 def guts_pose(data):
