@@ -52,21 +52,18 @@ def check(data):
         arm_initial_pose = arm.get_current_pose().pose # アーム初期ポーズを表示
         # --------------------
         # 文書確認の動作
-        arm_move(0.24, 0.10, 0.2)
-
-        arm_move(0.24, 0.0, 0.2) 
-
+        
         # SRDFに定義されている"home"の姿勢にする
         arm.set_named_target("home")
         arm.go()
+        arm_move(0.24, 0.10, 0.2)
+
+        arm_move(0.24, 0.0, 0.2) 
         # --------------------
         # 動作終了報告
         pub.publish(turn)
         rospy.loginfo("Finish Check")
         # --------------------
-
-    if data.data == turn :
-        flag = True
 
 
 def main():
@@ -81,4 +78,3 @@ if __name__ == '__main__':
             main()
     except rospy.ROSInterruptException:
         pass
-# --------------------

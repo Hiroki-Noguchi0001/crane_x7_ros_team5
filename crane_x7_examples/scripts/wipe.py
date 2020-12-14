@@ -10,7 +10,7 @@ from tf.transformations import quaternion_from_euler
 from std_msgs.msg import Int32  # メッセージ型
 
 turn = 6    # 動作実行順序
-flag1 = True # 動作フラグ
+flag = True # 動作フラグ
 
 arm = moveit_commander.MoveGroupCommander("arm")
 
@@ -33,11 +33,11 @@ def arm_move(x,y,z):
 
 
 def wipe(data):
-    global flag1, trun, arm
+    global flag, trun, arm
 
-    if data.data == turn and flag1 :
+    if data.data == turn and flag :
         rospy.loginfo("Start Wipe")
-        flag1 = False
+        flag = False
         # -------------------
         pub = rospy.Publisher("report", Int32, queue_size = 1) # 動作報告パブリッシャ
         # -------------------
@@ -67,9 +67,6 @@ def wipe(data):
         rospy.loginfo("Finish Wipe")
         # --------------------
 
-    if data.data == turn :
-        flag1 = True
-
 
 def main():
     sub = rospy.Subscriber("number", Int32, wipe) # 動作指示サブスクライバ
@@ -83,4 +80,3 @@ if __name__ == '__main__':
             main()
     except rospy.ROSInterruptException:
         pass
-# --------------------
