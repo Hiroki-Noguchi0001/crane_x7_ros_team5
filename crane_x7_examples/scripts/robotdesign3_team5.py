@@ -150,10 +150,6 @@ def main():
     while Moveflag != 7 :
         pass
     # --------------------
-    # SRDFに定義されている"home"の姿勢にする
-    arm.set_named_target("home")
-    arm.go()
-    # --------------------
     # ガッツポーズ
     pub.publish(8)
     while Moveflag != 8 :
