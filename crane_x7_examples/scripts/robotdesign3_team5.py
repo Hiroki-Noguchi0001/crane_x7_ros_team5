@@ -89,7 +89,6 @@ def main():
     arm_initial_pose = arm.get_current_pose().pose
     print("Arm initial pose:")
     print(arm_initial_pose)
-    '''
     # --------------------
     # 挨拶
     pub.publish(1)
@@ -100,7 +99,6 @@ def main():
     pub.publish(2)
     while Moveflag != 2 :
         pass
-    '''
     # --------------------
     # 跳ね除ける
     arm.set_named_target("home")
@@ -124,7 +122,6 @@ def main():
     for i in range(10):
         arm_move(push_x3, push_y2, push_after_z)
         push_y2 = push_y2 - 0.01
-    '''
     # --------------------
     # はんこを掴む
     pub.publish(3)
@@ -152,7 +149,6 @@ def main():
         pass
     # --------------------
     pub.publish(0)
-    '''
 
     # SRDFに定義されている"home"の姿勢にする
     arm.set_named_target("home")
