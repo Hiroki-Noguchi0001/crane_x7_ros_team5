@@ -44,33 +44,25 @@ def greet(data):
         rospy.sleep(1.0)
         # --------------------
         arm_initial_pose = arm.get_current_pose().pose # アーム初期ポーズを表示
+        # -------------------
+        # お辞儀
+        joint3_deg = -45        # 3番目の関節角度[deg]
+        joint2_deg = -45        # 2番目の関節角度[deg]
         # --------------------
         # 挨拶の動作
         arm.set_named_target("vertical")
         arm.go()
-
-        joint_move(3,-45)
+        joint_move(3,joint3_deg)
         rospy.sleep(1.0)
-
+        for i in range(2):
+            arm.set_named_target("vertical")
+            arm.go()
+            joint_move(2,joint2_deg)
+            joint_move(3,joint3_deg)
+            rospy.sleep(1.0)
+            joint2_deg = joint2_deg + 90
         arm.set_named_target("vertical")
         arm.go()
-        rospy.sleep(1.0)
-
-        joint_move(2,-45)
-        joint_move(3,-45)
-        rospy.sleep(1.0)
-
-        arm.set_named_target("vertical")
-        arm.go()
-        rospy.sleep(1.0)
-
-        joint_move(2,45)
-        joint_move(3,-45)
-        rospy.sleep(1.0)
-
-        arm.set_named_target("vertical")
-        arm.go()
-        rospy.sleep(1.0)
         # --------------------
         # 動作終了報告
         pub.publish(turn)
