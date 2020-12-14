@@ -37,7 +37,6 @@ def main():
     arm.set_max_velocity_scaling_factor(0.1)
     gripper = moveit_commander.MoveGroupCommander("gripper")
     # --------------------
-    """
     # 指定座標に手先を動かす関数
     def arm_move(x,y,z):
         target_pose = geometry_msgs.msg.Pose()
@@ -63,7 +62,6 @@ def main():
         target_joint_values[joint_value] = arm.get_current_joint_values()[joint_value] + math.radians(deg)
         arm.set_joint_value_target(target_joint_values)
         arm.go()
-    """
     # --------------------
     while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
         rospy.sleep(1.0)
