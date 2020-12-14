@@ -23,14 +23,6 @@ def main():
     pub = rospy.Publisher("number", Int32, queue_size=1)
     sub = rospy.Subscriber("report", Int32, order)
     # --------------------
-    # はんこ
-    seal_x = 0.30           # x座標[m]
-    seal_y = -0.15          # y座標[m]
-    seal_before_z = 0.30    # 掴む前  Z座標[m]
-    seal_z = 0.135          # 掴む    Z座標[m]
-    seal_after_z = 0.30     # 掴む後  Z座標[m]
-    seal_close = 0.10       # 掴む角度[rad]
-    # --------------------
     # 跳ね除ける
     push_x1 = 0
     push_x2 = 0.10
@@ -40,15 +32,12 @@ def main():
     push_before_z = 0.20
     push_after_z = 0.12
     # --------------------
-    # 初期設定
-    hand_open = math.pi/4   # ハンド 開く角度[rad]
-    ofset_exec_speed = 0.1  # 実行速度 
-    # --------------------
     robot = moveit_commander.RobotCommander()
     arm = moveit_commander.MoveGroupCommander("arm")
-    arm.set_max_velocity_scaling_factor(ofset_exec_speed)
+    arm.set_max_velocity_scaling_factor(0.1)
     gripper = moveit_commander.MoveGroupCommander("gripper")
     # --------------------
+    """
     # 指定座標に手先を動かす関数
     def arm_move(x,y,z):
         target_pose = geometry_msgs.msg.Pose()
@@ -74,6 +63,7 @@ def main():
         target_joint_values[joint_value] = arm.get_current_joint_values()[joint_value] + math.radians(deg)
         arm.set_joint_value_target(target_joint_values)
         arm.go()
+    """
     # --------------------
     while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
         rospy.sleep(1.0)
@@ -148,11 +138,11 @@ def main():
     while Moveflag != 7 :
         pass
     # --------------------
-    pub.publish(0)
-
     # SRDFに定義されている"home"の姿勢にする
     arm.set_named_target("home")
     arm.go()
+    # --------------------
+    
 
 if __name__ == '__main__':
 

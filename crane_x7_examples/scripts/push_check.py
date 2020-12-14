@@ -10,7 +10,7 @@ from tf.transformations import quaternion_from_euler
 from std_msgs.msg import Int32  # メッセージ型
 
 turn = 4    # 動作実行順序
-flag1 = True # 動作フラグ
+flag = True # 動作フラグ
 
 arm = moveit_commander.MoveGroupCommander("arm")
 
@@ -41,7 +41,7 @@ def joint_move(joint_value,deg):
 
 
 def Push_Check(data):
-    global flag1, trun, arm
+    global flag, trun, arm
 
     inkpad_x = 0.20         # x座標[m]
     inkpad_y = -0.15        # y座標[m]
@@ -52,9 +52,9 @@ def Push_Check(data):
     inkpad_up_z = 0.01      # ポンポンする高さ[m]
     check_deg = 50          # 確認時回転角度[deg]
 
-    if data.data == turn and flag1 :
+    if data.data == turn and flag :
         rospy.loginfo("Start Push and Check")
-        flag1 = False
+        flag = False
         # -------------------
         pub = rospy.Publisher("report", Int32, queue_size = 1) # 動作報告パブリッシャ
         # -------------------
@@ -91,9 +91,6 @@ def Push_Check(data):
         rospy.loginfo("Finish Push and Check")
         # --------------------
 
-    if data.data == turn :
-        flag1 = True
-
 
 def main():
     sub = rospy.Subscriber("number", Int32, Push_Check) # 動作指示サブスクライバ
@@ -107,4 +104,3 @@ if __name__ == '__main__':
             main()
     except rospy.ROSInterruptException:
         pass
-# --------------------

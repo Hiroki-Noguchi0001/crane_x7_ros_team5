@@ -77,9 +77,6 @@ def greet(data):
         rospy.loginfo("Finish Greet")
         # --------------------
 
-    if data.data == turn :
-        flag = True
-
 
 def main():
     sub = rospy.Subscriber("number", Int32, greet) # 動作指示サブスクライバ
@@ -93,4 +90,3 @@ if __name__ == '__main__':
             main()
     except rospy.ROSInterruptException:
         pass
-# --------------------
