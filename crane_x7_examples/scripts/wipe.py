@@ -50,17 +50,24 @@ def wipe(data):
         rospy.sleep(1.0)
         # --------------------
         arm_initial_pose = arm.get_current_pose().pose # アーム初期ポーズを表示
+        # -------------------
+        # 拭く
+        wipe_x = 0.20           # x座標[m]
+        wipe_y = 0.30           # y座標[m]
+        wipe_before_z = 0.2     # 拭く前　z座標[m]　
+        wipe_z = 0.12           # z座標[m]
+        wipe_after_z = 0.2      # 拭いた後　z座標[m]
         # --------------------
         # 拭く
-        arm_move(0.20, 0.30, 0.2)   # はんこをティッシュの上まで移動
-
-        # はんこをティッシュで拭く
-        arm_move(0.20, 0.30, 0.12)
-        arm_move(0.22, 0.30, 0.12)
-        arm_move(0.20, 0.30, 0.12)
-        arm_move(0.18, 0.30, 0.12)
-
-        arm_move(0.20, 0.30, 0.2) # はんこを上げる
+        arm_move(wipe_x, wipe_y, wipe_before_z)
+        for i in range(6):
+            arm_move(wipe_x, wipe_y, wipe_z)
+            rospy.sleep(0.5)
+            if i % 2 == 0:
+                wipe_x = wipe_x + 0.02
+            else:
+                wipe_x = wipe_x - 0.02
+        arm_move(wipe_x, wipe_y, wipe_after_z)
         # --------------------
         # 動作終了報告
         pub.publish(turn)
