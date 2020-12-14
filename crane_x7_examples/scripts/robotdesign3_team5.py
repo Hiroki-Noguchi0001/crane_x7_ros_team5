@@ -79,6 +79,19 @@ def main():
     print("Arm initial pose:")
     print(arm_initial_pose)
     # --------------------
+    # 担当 Mibuchi Yuta
+    # 紙を見つけてたくらむ
+    arm.set_named_target("home")
+    arm.go()
+    
+    #周囲に誰もいないか確認
+    joint_move(0,-80)
+    joint_move(0,160)
+    joint_move(0,-160)
+    
+    arm.set_named_target("home")
+    arm.go()
+    # --------------------    
     # 挨拶
     pub.publish(1)
     while Moveflag != 1 :
