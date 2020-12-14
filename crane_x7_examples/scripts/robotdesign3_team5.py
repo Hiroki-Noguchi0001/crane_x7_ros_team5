@@ -85,20 +85,25 @@ def main():
         pass
     
     # --------------------
-    # 担当 Mibuchi Yuta
-    # 紙を見つけてたくらむ
+    
+    #紙を読む
+    arm_move(0.25, 0.05, 0.12)
+    arm_move(0.25, - 0.05, 0.12)
+    arm_move(0.20 , 0.05, 0.12)
+    arm_move(0.20 , -0.05, 0.12)
+    arm_move(0.15, 0.05, 0.12)
+    arm_move(0.15, -0.05, 0.12)
+    
+    #周囲に誰もいないか確認
     arm.set_named_target("home")
     arm.go()
     
-    #周囲に誰もいないか確認
     joint_move(0,-80)
     joint_move(0,160)
     joint_move(0,-160)
     
-    arm.set_named_target("home")
-    arm.go()
     # --------------------
-    # 文書確認
+    # もう一度文書確認
     pub.publish(2)
     while Moveflag != 2 :
         pass
