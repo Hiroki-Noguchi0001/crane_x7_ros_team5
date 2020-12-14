@@ -79,6 +79,35 @@ def main():
     print("Arm initial pose:")
     print(arm_initial_pose)
     # --------------------
+    # 担当 Mibuchi Yuta
+    # 紙を見つけてたくらむ
+    arm.set_named_target("home")
+    arm.go()
+    print("紙を読む")
+    arm_move(put_x + 0.05, put_y + 0.05, put_z)
+    arm_move(put_x + 0.05, put_y - 0.05, put_z)
+    arm_move(put_x , put_y + 0.05, put_z)
+    arm_move(put_x , put_y - 0.05, put_z)
+    arm_move(put_x - 0.05, put_y + 0.05, put_z)
+    arm_move(put_x - 0.05, put_y - 0.05, put_z)
+    
+    print("再度確認")
+    arm.set_named_target("home")
+    arm.go()
+    rospy.sleep(0.5)
+    arm_move(put_x , put_y + 0.05, put_z)
+    arm_move(put_x , put_y - 0.05, put_z)
+    arm.set_named_target("home")
+    arm.go()
+    
+    print("周囲に誰もいないか確認")
+    joint_move(0,-80)
+    joint_move(0,160)
+    joint_move(0,-160)
+    
+    arm.set_named_target("home")
+    arm.go()
+    # --------------------    
     # 挨拶
     pub.publish(1)
     while Moveflag != 1 :
