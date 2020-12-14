@@ -82,10 +82,9 @@ def main():
     # 挨拶
     pub.publish(1)
     while Moveflag != 1 :
-        pass
-    
+        pass    
     # --------------------
-    
+    """
     #紙を見つける
     arm.set_named_target("home")
     arm.go()
@@ -98,7 +97,7 @@ def main():
     joint_move(0,-80)
     joint_move(0,160)
     joint_move(0,-160)
-    
+    """ 
     # --------------------
     # もう一度文書確認
     pub.publish(2)

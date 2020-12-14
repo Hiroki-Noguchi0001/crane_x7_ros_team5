@@ -58,10 +58,6 @@ def grab_release(data):
     if data.data == turn1 and flag1 :
         rospy.loginfo("Start Grab")
         flag1 = False
-        # -------------------
-        # 動作開始報告
-        report_num = turn1 - 1
-        pub.publish(report_num)
         # --------------------
         while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
             rospy.sleep(1.0)

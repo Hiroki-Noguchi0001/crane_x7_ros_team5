@@ -9,6 +9,8 @@ import math
 from tf.transformations import quaternion_from_euler
 from std_msgs.msg import Int32  # メッセージ型
 
+# from move_def import joint_move
+
 turn = 1    # 動作実行順序
 flag = True # 動作フラグ
 
@@ -25,7 +27,6 @@ def joint_move(joint_value,deg):
     arm.set_joint_value_target(target_joint_values)
     arm.go()
 
-
 def greet(data):
     global flag, trun, arm
 
@@ -34,10 +35,6 @@ def greet(data):
         flag = False
         # -------------------
         pub = rospy.Publisher("report", Int32, queue_size = 1) # 動作報告パブリッシャ
-        # -------------------
-        # 動作開始報告
-        report_num = turn - 1
-        pub.publish(report_num)
         # --------------------
         while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
             rospy.sleep(1.0)
