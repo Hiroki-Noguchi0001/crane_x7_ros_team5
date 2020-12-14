@@ -84,23 +84,6 @@ def main():
     arm.set_named_target("home")
     arm.go()
     
-    #紙を読む
-    arm_move(put_x + 0.05, put_y + 0.05, put_z)
-    arm_move(put_x + 0.05, put_y - 0.05, put_z)
-    arm_move(put_x , put_y + 0.05, put_z)
-    arm_move(put_x , put_y - 0.05, put_z)
-    arm_move(put_x - 0.05, put_y + 0.05, put_z)
-    arm_move(put_x - 0.05, put_y - 0.05, put_z)
-    
-    #再度確認
-    arm.set_named_target("home")
-    arm.go()
-    rospy.sleep(0.5)
-    arm_move(put_x , put_y + 0.05, put_z)
-    arm_move(put_x , put_y - 0.05, put_z)
-    arm.set_named_target("home")
-    arm.go()
-    
     #周囲に誰もいないか確認
     joint_move(0,-80)
     joint_move(0,160)
