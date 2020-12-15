@@ -5,16 +5,11 @@ import rospy
 import moveit_commander
 import geometry_msgs.msg
 import rosnode
-import math
 from tf.transformations import quaternion_from_euler
 
 import rospy
 from std_msgs.msg import String  # メッセージ型
 from std_msgs.msg import Int32  # メッセージ型
-
-from move_def import arm_move   # 指定座標に手先を動かす関数
-from move_def import hand_move  # ハンドの角度[rad]を指定し動かす関数
-from move_def import joint_move # 指定関節の角度[deg]を指定し動かす関数
 
 FinishFlag = False
 
@@ -53,72 +48,11 @@ def main():
 
     for i in range(len(ActionNames)):
         pub.publish(ActionNames[i])
+
         FinishFlag = False
         while FinishFlag != True :
             pass
     # --------------------
-    """
-    # 挨拶
-    pub.publish("Greet")
-    while FinishFlag != True :
-        pass
-    # --------------------
-    # 悪さ
-    pub.publish("Artifice")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass    
-    # --------------------
-    # もう一度文書確認
-    pub.publish("Check")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass
-    # --------------------
-    # 跳ね除ける
-    pub.publish("Exclusion")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass
-    # --------------------
-    # はんこを掴む
-    pub.publish("Grab")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass
-    # --------------------
-    # 朱肉につけ確認する
-    pub.publish("PushCheck")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass
-    # --------------------
-    # 捺印
-    pub.publish("Seal")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass
-    # --------------------
-    # 拭く
-    pub.publish("Wipe")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass
-    # --------------------
-    # はんこを戻す
-    pub.publish("Release")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass
-    # --------------------
-    # ガッツポーズ
-    pub.publish("GutsPose")
-    FinishFlag = False
-    while FinishFlag != True :
-        pass
-    # --------------------
-    """
-
 
 
 if __name__ == '__main__':
