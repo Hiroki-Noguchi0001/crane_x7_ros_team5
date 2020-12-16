@@ -6,6 +6,7 @@
 #include <geometry_msgs/Pose2D.h>
 #include <vector>
 
+double area = 0;
 using namespace::cv;
 geometry_msgs::Pose2D pose;
 //std::string msg; 
@@ -45,16 +46,18 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
 
   rgb_image = cv_ptr->image;
   //kakuninn
-  cv::imshow("cv_ptr", cv_ptr->image);
+  //cv::imshow("cv_ptr", cv_ptr->image);
 
   cvtColor(cv_ptr->image, hsv_image, CV_BGR2HSV, 3);//rgbからhsvに変換
 
-  Scalar sita = Scalar(0, 50, 50);//hsvで表した赤~黄あたり
-  Scalar ue = Scalar(30, 255, 255);
+  //Scalar sita = Scalar(0, 50, 50);//hsvで表した赤~黄あたり
+  //Scalar ue = Scalar(30, 255, 255);
+  Scalar sita = Scalar(50, 50, 50);//hsvで表した緑あたり/(40. 50, 50)
+  Scalar ue = Scalar(80, 255, 255);
 
   cv::inRange(hsv_image, sita, ue, bin_image);//2値化
 
-  cv::imshow("bin", bin_image);//2値化後の画像
+  //cv::imshow("bin", bin_image);//2値化後の画像
   
   cv_ptr->image.copyTo(output_image, bin_image);//マスク
 
@@ -64,7 +67,8 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
   double max_area=0;
   int max_area_contour=-1;
   for(int j=0;j<contours.size();j++){
-    double area=contourArea(contours.at(j));
+    //double area=contourArea(contours.at(j));
+    area=contourArea(contours.at(j));
     if(max_area<area){
         max_area=area;
         max_area_contour=j;
@@ -81,24 +85,41 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
     x/=count;
     y/=count;
 
-    pose.x = x - 320;//画像の中心を(0,0)とした
-    pose.y = y - 240;
+    if(area > 1000){
+      pose.theta = 1;
+    }else{
+      pose.theta = 0;
+    }
+
+    //pose.x = x - 320;//画像の中心を(0,0)とした
+    //pose.y = y - 240;
+    //pose.x = 320 - x;//→が正
+    pose.x = x - 320;//←が正
+    //pose.y = y - 240;//↓が正
+    pose.y = 240 - y;//↑が正
     pose.theta = 1;
     printf("x = %lf, y = %lf theta = %lf\n", pose.x, pose.y, pose.theta);
     circle(rgb_image, Point(x,y),100, Scalar(0,0,255),3,4);
 
     pub_pose.publish(pose);
   }else{
-    pose.theta = 0;
+    //pose.theta = 0;
     pub_pose.publish(pose);
     printf("x = %lf, y = %lf theta = %lf\n", pose.x, pose.y, pose.theta);
   }
 
+  for(int x = 0; x < 640; x += 50){
+    line(rgb_image, Point(x, 0), Point(x, 480), Scalar(0, 200, 200), 1, 0);
+  }
+  for(int y = 0; y < 480; y +=50){
+    //line(rgb_image, Point(x, 0), Point(x, 480), Scalar(0, 200, 200), 1, 1);
+    line(rgb_image, Point(0, y), Point(640, y), Scalar(0, 200, 200), 1, 0);
+  }
   //circle(rgb_image, Point(x,y),100, Scalar(0,0,255),3,4);
 
   circle(rgb_image, Point(320, 240),25, Scalar(0,255,255),3,4);
   cv::imshow("rgb", rgb_image);
-  cv::imshow("hsv", hsv_image);
+  //cv::imshow("hsv", hsv_image);
   cv::imshow("output", output_image);
   cv::waitKey(10);
 
