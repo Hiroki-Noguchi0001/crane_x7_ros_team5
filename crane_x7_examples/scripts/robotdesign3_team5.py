@@ -44,6 +44,10 @@ def main():
     print("Arm initial pose:")
     print(arm_initial_pose)
     # --------------------
+    #no-realsense-ver
+    #ActionNames = ["Greet", "Artifice", "Check", "Exclusion", "Grab", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
+
+    #realsense-ver
     ActionNames = ["Greet", "Artifice", "Check", "Exclusion", "Detect", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
 
     for i in range(len(ActionNames)):
