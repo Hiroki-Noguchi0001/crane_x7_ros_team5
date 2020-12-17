@@ -14,11 +14,10 @@ from std_msgs.msg import String
 from move_def import arm_move
 from move_def import hand_move
 
-#rospy.init_node("detect_seal")
 robot = moveit_commander.RobotCommander()
 arm = moveit_commander.MoveGroupCommander("arm")
 arm.set_max_velocity_scaling_factor(0.1)
-gripper = moveit_commander.MoveGroupCommander("gripper")
+#gripper = moveit_commander.MoveGroupCommander("gripper")
 
 while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
     rospy.sleep(1.0)
@@ -30,26 +29,13 @@ mode = True
 see_x = 0.10
 see_y = -0.25
 see_z = 0.3
-pick_z = 0.130
+pick_z = 0.135
 x_max = 0.3
 y_max = 0.3
 close = 0.10
 
 
 def main2():
-    #self.pub =()
-    #self.sub = rospy.Subscriber("pose", Pose2D, self.pickcallback)
-    """
-    rospy.init_node("detect_seal")
-    robot = moveit_commander.RobotCommander()
-    arm = moveit_commander.MoveGroupCommander("arm")
-    arm.set_max_velocity_scaling_factor(0.1)
-    gripper = moveit_commander.MoveGroupCommander("gripper")
-    while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
-        rospy.sleep(1.0)
-    rospy.sleep(1.0)
-    """
-
     print("Group names:")
     print(robot.get_group_names())
 
@@ -60,12 +46,6 @@ def main2():
     arm_initial_pose = arm.get_current_pose().pose
     print("Arm initial pose:")
     print(arm_initial_pose)
-
-    arm.set_named_target("vertical")
-    arm.go()
-    
-    arm.set_named_target("home")
-    arm.go()
 
     hand_move(0.7)
 
@@ -91,21 +71,19 @@ def pickcallback(pose):
     limit = pose.theta
     pose_x = pose.x
     pose_y = pose.y
-    global mode
-
-    global see_x , see_y
+    global see_x , see_y, mode, x_max, y_max
 
     if(mode == True):
-        print("ifbunndesu")
+        hand_move(0.7)
         print("zahyou", pose_x, pose_y)
         if(limit == 0):
             print("探す")
             arm_move(see_x, see_y, see_z)
             see_x += 0.01
-            if(see_x == x_max):
+            if(see_x >= x_max):
                 see_y += 0.01
                 see_x = 0.10
-            if(see_y == y_max):
+            if(see_y >= y_max):
                 see_y = -0.25
 
         elif(pose_x < 35):
@@ -147,8 +125,6 @@ if __name__ == "__main__":
 
     try:
         if not rospy.is_shutdown():
-            #rospy.init_node("pick_hanko")
-            #sub = rospy.Subscriber("pose", Pose2D, pickcallback, queue_size=1)
             sub = rospy.Subscriber("name", String, main)
             rospy.spin()
     except rospy.ROSInterruptException:
