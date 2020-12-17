@@ -6,7 +6,7 @@
 #include <geometry_msgs/Pose2D.h>
 #include <vector>
 
-double area = 0;
+double area = 0, max_area = 0;
 using namespace::cv;
 geometry_msgs::Pose2D pose;
 //std::string msg; 
@@ -21,8 +21,6 @@ private:
     ros::NodeHandle nh;
     ros::Subscriber sub_rgb;
     ros::Publisher pub_pose = nh.advertise<geometry_msgs::Pose2D>("pose",1);//トピック名pose
-    //ros::Publisher pub_pose = nh.advertise<geometry_msgs::Pose2D>("bool1",1);
-    ros::Publisher pub2 = nh.advertise<geometry_msgs::Pose2D>("bool2",1);
 };
 
 depth_estimater::depth_estimater(){
@@ -45,8 +43,6 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
   cv::Mat rgb_image, hsv_image, mask_image, output_image, bin_image;
 
   rgb_image = cv_ptr->image;
-  //kakuninn
-  //cv::imshow("cv_ptr", cv_ptr->image);
 
   cvtColor(cv_ptr->image, hsv_image, CV_BGR2HSV, 3);//rgbからhsvに変換
 
@@ -57,7 +53,6 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
 
   cv::inRange(hsv_image, sita, ue, bin_image);//2値化
 
-  //cv::imshow("bin", bin_image);//2値化後の画像
   
   cv_ptr->image.copyTo(output_image, bin_image);//マスク
 
@@ -85,25 +80,22 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
     x/=count;
     y/=count;
 
-    if(area > 1000){
+    if(max_area > 1000){
       pose.theta = 1;
     }else{
       pose.theta = 0;
     }
 
-    //pose.x = x - 320;//画像の中心を(0,0)とした
-    //pose.y = y - 240;
+    //画像の中心を(0,0)とした
     //pose.x = 320 - x;//→が正
     pose.x = x - 320;//←が正
     //pose.y = y - 240;//↓が正
     pose.y = 240 - y;//↑が正
-    pose.theta = 1;
     printf("x = %lf, y = %lf theta = %lf\n", pose.x, pose.y, pose.theta);
     circle(rgb_image, Point(x,y),100, Scalar(0,0,255),3,4);
 
     pub_pose.publish(pose);
   }else{
-    //pose.theta = 0;
     pub_pose.publish(pose);
     printf("x = %lf, y = %lf theta = %lf\n", pose.x, pose.y, pose.theta);
   }
@@ -112,14 +104,12 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
     line(rgb_image, Point(x, 0), Point(x, 480), Scalar(0, 200, 200), 1, 0);
   }
   for(int y = 0; y < 480; y +=50){
-    //line(rgb_image, Point(x, 0), Point(x, 480), Scalar(0, 200, 200), 1, 1);
     line(rgb_image, Point(0, y), Point(640, y), Scalar(0, 200, 200), 1, 0);
   }
   //circle(rgb_image, Point(x,y),100, Scalar(0,0,255),3,4);
 
   circle(rgb_image, Point(320, 240),25, Scalar(0,255,255),3,4);
   cv::imshow("rgb", rgb_image);
-  //cv::imshow("hsv", hsv_image);
   cv::imshow("output", output_image);
   cv::waitKey(10);
 
