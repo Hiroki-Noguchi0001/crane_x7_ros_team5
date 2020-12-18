@@ -54,6 +54,7 @@ def grab_release(data):
         push_y1 = -0.25
         push_y2 = -0.20
         push_before_z = 0.20
+        z_after = 0.14
         push_after_z = 0.12
         hand_open = math.pi/4   # ハンド 開く角度[rad]
 
@@ -61,13 +62,13 @@ def grab_release(data):
         arm.go()
         arm_move(push_x1, push_y1, push_before_z)
         hand_move(hand_open)
-        arm_move(push_x1, push_y1, push_after_z)
+        arm_move(push_x1, push_y1, z_after)
         rospy.sleep(0.5)
         arm_move(push_x1, push_y1, push_before_z)
         for n in range(4):
             if n % 2 == 0:
                 arm_move(push_x2, push_y1, push_before_z)
-                arm_move(push_x2, push_y1, push_after_z)
+                arm_move(push_x2, push_y1, z_after)
                 rospy.sleep(0.5)
                 arm_move(push_x2, push_y1, push_before_z)
             else:

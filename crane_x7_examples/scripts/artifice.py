@@ -36,8 +36,12 @@ def artifice(data):
         arm_initial_pose = arm.get_current_pose().pose # アーム初期ポーズを表示
         # -------------------
         #紙を見つける
+        
         arm.set_named_target("home")
         arm.go()
+
+        joint_move(5,-60)
+        joint_move(5,60)
         arm_move(0.2 , 0.05, 0.3)
         
         #周囲に誰もいないか確認
@@ -66,3 +70,4 @@ if __name__ == '__main__':
             main()
     except rospy.ROSInterruptException:
         pass
+

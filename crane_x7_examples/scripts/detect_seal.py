@@ -67,7 +67,6 @@ def pick_seal():
 
 
 def pickcallback(pose):
-    print("pickcallback")
     limit = pose.theta
     pose_x = pose.x
     pose_y = pose.y
@@ -86,16 +85,16 @@ def pickcallback(pose):
             if(see_y >= y_max):
                 see_y = -0.25
 
-        elif(pose_x < 35):
+        elif(pose_x < 20):
             print(1)
             see_x -= 0.01
         elif(pose_x > 50):
             print(2)
             see_x += 0.01
-        elif(pose_y < -100):
+        elif(pose_y < -80):
             print(3)
             see_y -= 0.01
-        elif(pose_y > -80):
+        elif(pose_y > -50):
             print(4)
             see_y += 0.01
         else:
