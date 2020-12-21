@@ -7,18 +7,6 @@
 USERNAME=$(whoami)
 
 if [ -d "/home/$USERNAME/.gazebo/models" ]; then
-
-    if [ -d "/home/$USERNAME/.gazebo/models/asstseal_model" ]; then
-        cd /home/$USERNAME/.gazebo/models/asstseal_model
-        echo "上田はんこモデル リポジトリを更新します"
-        git pull
-    else
-        cd /home/$USERNAME/.gazebo/models
-        echo "上田はんこモデル リポジトリをクローンします"
-        git clone https://github.com/RobotDesign3-Team5/asstseal_model.git
-    fi
-
-    echo -n -e "\n"
     
     if [ -d "/home/$USERNAME/.gazebo/models/storage_model" ]; then
         cd /home/$USERNAME/.gazebo/models/storage_model
