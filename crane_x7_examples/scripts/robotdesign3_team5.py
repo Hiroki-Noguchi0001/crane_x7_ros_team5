@@ -45,7 +45,7 @@ def main():
     print(arm_initial_pose)
     # --------------------
     #no-realsense-ver
-    #ActionNames = ["Greet", "Artifice", "Check", "Exclusion", "Grab", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
+    #ActionNames = ["Greet", "Artifice", "Check", "Exclusion", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
 
     rospy.sleep(5)
     #realsense-ver
