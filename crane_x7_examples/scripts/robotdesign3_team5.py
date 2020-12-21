@@ -55,7 +55,7 @@ def main():
         pub.publish(ActionNames[i])
 
         FinishFlag = False
-        while FinishFlag != True :
+        while not FinishFlag :
             pass
     # --------------------
 
