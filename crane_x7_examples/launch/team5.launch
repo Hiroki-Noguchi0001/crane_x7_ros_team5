@@ -1,5 +1,5 @@
 <launch>
-  <node name="crane_x7_pick_and_place_controller" pkg="crane_x7_examples" type="robotdesign3_team5.py" required="true" output="screen" />
+  <node name="RobotDesign3_Team5" pkg="crane_x7_examples" type="robotdesign3_team5.py" required="true" output="screen" />
   <node name="Greet" pkg="crane_x7_examples" type="greet.py" required="true" output="screen" />
   <node name="Check" pkg="crane_x7_examples" type="check.py" required="true" output="screen" />
   <node name="Exclusion_Release" pkg="crane_x7_examples" type="grab_release.py" required="true" output="screen" />

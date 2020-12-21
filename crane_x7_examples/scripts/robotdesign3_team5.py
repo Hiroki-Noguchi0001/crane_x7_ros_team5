@@ -20,7 +20,7 @@ def order(data):
 def main():
     global FinishFlag 
     # --------------------
-    rospy.init_node("crane_x7_pick_and_place_controller", anonymous=True)
+    rospy.init_node("RobotDesign3_Team5", anonymous=True)
     pub = rospy.Publisher("name", String, queue_size=1)
     sub = rospy.Subscriber("report", Int32, order)
     # --------------------
