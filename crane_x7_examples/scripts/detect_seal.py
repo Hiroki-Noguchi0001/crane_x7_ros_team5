@@ -17,7 +17,6 @@ from move_def import hand_move
 robot = moveit_commander.RobotCommander()
 arm = moveit_commander.MoveGroupCommander("arm")
 arm.set_max_velocity_scaling_factor(0.1)
-#gripper = moveit_commander.MoveGroupCommander("gripper")
 
 while len([s for s in rosnode.get_node_names() if 'rviz' in s]) == 0:
     rospy.sleep(1.0)
@@ -25,6 +24,7 @@ rospy.sleep(1.0)
 
 flag = True
 mode = True
+first = True
 
 see_x = 0.10
 see_y = -0.25
@@ -112,6 +112,9 @@ def pickcallback(pose):
         pass
 
 def main(data):
+    if(first):
+        main2()
+        first = False
     if(data.data == "Detect" and flag):
         rospy.loginfo("Start Detect seal")
         sub = rospy.Subscriber("pose", Pose2D, pickcallback, queue_size=1)
@@ -120,7 +123,7 @@ def main(data):
 
 if __name__ == "__main__":
     rospy.init_node("detect_seal")
-    main2()
+    #main2()
 
     try:
         if not rospy.is_shutdown():
