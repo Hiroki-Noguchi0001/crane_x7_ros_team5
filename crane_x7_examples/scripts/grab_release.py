@@ -13,6 +13,7 @@ from std_msgs.msg import Int32
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 from move_def import hand_move  # ハンドの角度[rad]を指定し動かす関数
+from move_def import joints_moves_rad   # 複数関節の角度[rad]を指定し動かす関数
 
 flag0 = True # 動作フラグ0
 flag1 = True # 動作フラグ1
@@ -92,13 +93,8 @@ def cd(data):
         seal_y = -0.15          # y座標[m]
         seal_before_z = 0.30    # 掴む前  Z座標[m]
         seal_z = 0.135          # 掴む    Z座標[m]
-        seal_after_z = 0.30     # 掴む後  Z座標[m]
-        seal_close = 0.10       # 掴む角度[rad]
-
-        # arm_move(seal_x, seal_y, seal_before_z)
-        arm.set_named_target("pick_seal_position") # はんこ上まで移動
-        arm.go()
-
+        
+        arm_move(seal_x, seal_y, seal_before_z) # はんこをはなす前の位置まで移動
         arm_move(seal_x, seal_y, seal_z) # はんこをはなす位置まで移動
 
         hand_move(hand_open) # はんこをはなす

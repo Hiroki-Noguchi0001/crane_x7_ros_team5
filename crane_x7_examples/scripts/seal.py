@@ -44,8 +44,7 @@ def cd(data):
         arm_initial_pose = arm.get_current_pose().pose # アーム初期ポーズを表示
         # --------------------
         # 捺印
-        arm.set_named_target("before_stamping_position") # 姿勢を指定
-        arm.go()
+        arm_move(put_x, put_y, put_before_z)
 
         arm_move(put_x, put_y, put_z)
         arm_move(put_x, put_y, put_z - push_z)
