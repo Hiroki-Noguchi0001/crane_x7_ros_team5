@@ -7,8 +7,9 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
-from std_msgs.msg import String  # メッセージ型
-from std_msgs.msg import Int32  # メッセージ型
+
+from std_msgs.msg import String
+from std_msgs.msg import Int32
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 from move_def import joint_move # 指定関節の角度[deg]を指定し動かす関数
@@ -59,7 +60,7 @@ def main():
 
 
 if __name__ == '__main__':
-    rospy.init_node("Guts_Pose", anonymous=True)
+    rospy.init_node("GutsPose", anonymous=True)
     try:
         if not rospy.is_shutdown():
             main()

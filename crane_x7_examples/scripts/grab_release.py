@@ -7,8 +7,9 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
-from std_msgs.msg import String  # メッセージ型
-from std_msgs.msg import Int32  # メッセージ型
+
+from std_msgs.msg import String
+from std_msgs.msg import Int32
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 from move_def import hand_move  # ハンドの角度[rad]を指定し動かす関数
@@ -22,8 +23,8 @@ gripper = moveit_commander.MoveGroupCommander("gripper")
 arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 
 
-def grab_release(data):
-    global flag0, flag1, flag1, arm
+def cd(data):
+    global flag0, flag1, arm
 
     hand_open = math.pi/4   # ハンド 開く角度[rad]
 
@@ -109,12 +110,12 @@ def grab_release(data):
 
 
 def main():
-    sub = rospy.Subscriber("name", String, grab_release) # 動作指示サブスクライバ
+    sub = rospy.Subscriber("name", String, cd) # 動作指示サブスクライバ
     rospy.spin()
 
 
 if __name__ == '__main__':
-    rospy.init_node("Grab_Release", anonymous=True)
+    rospy.init_node("Exclusion_Release", anonymous=True)
     try:
         if not rospy.is_shutdown():
             main()

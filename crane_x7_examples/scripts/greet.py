@@ -7,8 +7,9 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
-from std_msgs.msg import String  # メッセージ型
-from std_msgs.msg import Int32  # メッセージ型
+
+from std_msgs.msg import String
+from std_msgs.msg import Int32
 
 from move_def import joint_move # 指定関節の角度[deg]を指定し動かす関数
 
@@ -19,7 +20,7 @@ arm = moveit_commander.MoveGroupCommander("arm")
 arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 
 
-def greet(data):
+def cd(data):
     global flag, arm
 
     joint3_deg = -45        # 3番目の関節角度[deg]
@@ -59,12 +60,12 @@ def greet(data):
 
 
 def main():
-    sub = rospy.Subscriber("name", String, greet) # 動作指示サブスクライバ
+    sub = rospy.Subscriber("name", String, cd) # 動作指示サブスクライバ
     rospy.spin()
 
 
 if __name__ == '__main__':
-    rospy.init_node("greet", anonymous=True)
+    rospy.init_node("Greet", anonymous=True)
     try:
         if not rospy.is_shutdown():
             main()

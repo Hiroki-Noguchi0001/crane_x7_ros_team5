@@ -7,8 +7,9 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
-from std_msgs.msg import String  # メッセージ型
-from std_msgs.msg import Int32  # メッセージ型
+
+from std_msgs.msg import String
+from std_msgs.msg import Int32
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 
@@ -19,7 +20,7 @@ arm = moveit_commander.MoveGroupCommander("arm")
 arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 
 
-def wipe(data):
+def cd(data):
     global flag, arm
 
     wipe_x = 0.20           # x座標[m]
@@ -58,7 +59,7 @@ def wipe(data):
 
 
 def main():
-    sub = rospy.Subscriber("name", String, wipe) # 動作指示サブスクライバ
+    sub = rospy.Subscriber("name", String, cd) # 動作指示サブスクライバ
     rospy.spin()
 
 
