@@ -50,8 +50,7 @@ def main():
     rospy.sleep(5)
     #realsense-ver
     ActionNames = ["Greet", "Artifice", "Check", "Exclusion", "Detect", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
-    #ActionNames = ["Greet", "Artifice", "Check", "Detect", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
-
+    
     for i in range(len(ActionNames)):
         pub.publish(ActionNames[i])
 
