@@ -23,9 +23,6 @@ arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 def guts_pose(data):
     global flag, arm
 
-    guts1 = -80
-    guts2 = -100
-
     if data.data == "GutsPose" and flag :
         rospy.loginfo("Start Guts Pose")
         flag = False
@@ -49,10 +46,6 @@ def guts_pose(data):
         joint_move(3,-100)
         rospy.sleep(1.0)
 
-        for n in range(4):
-            joint_move(3,guts1)
-            joint_move(3,guts2)
-            rospy.sleep(1.0)
         # --------------------
         # 動作終了報告
         pub.publish(True)
