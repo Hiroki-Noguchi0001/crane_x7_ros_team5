@@ -1,4 +1,7 @@
-/*ライセンスを追加*/
+/*
+   Copyright (c) 2020, Souya Watanabe and Ryoko Shiojima
+All rights reserved.
+*/
 #include <ros/ros.h>
 #include <sensor_msgs/Image.h>
 #include <cv_bridge/cv_bridge.h>
@@ -6,7 +9,7 @@
 #include <geometry_msgs/Pose2D.h>
 #include <vector>
 
-double area = 0, max_area = 0;
+double max_area = 0;
 using namespace::cv;
 geometry_msgs::Pose2D pose;
 //std::string msg; 
@@ -40,11 +43,12 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
     exit(-1);
   }
 
-  cv::Mat rgb_image, hsv_image, mask_image, output_image, bin_image;
+  cv::Mat rgb_image, hsv_image, output_image, bin_image;
 
   rgb_image = cv_ptr->image;
 
-  cvtColor(cv_ptr->image, hsv_image, CV_BGR2HSV, 3);//rgbからhsvに変換
+  cvtColor(rgb_image, hsv_image, CV_BGR2HSV, 3);//rgbからhsvに変換
+  //cvtColor(cv_ptr->image, hsv_image, hsv_image, CV_BGR2HSV, 3);//rgbからhsvに変換
 
   //Scalar sita = Scalar(0, 50, 50);//hsvで表した赤~黄あたり
   //Scalar ue = Scalar(30, 255, 255);
@@ -54,15 +58,15 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
   cv::inRange(hsv_image, sita, ue, bin_image);//2値化
 
   
-  cv_ptr->image.copyTo(output_image, bin_image);//マスク
+  rgb_image.copyTo(output_image, bin_image);//マスク
+  //cv_ptr->image.copyTo(output_image, bin_image);//マスク
 
   std::vector< std::vector< cv::Point > > contours;
 
   cv::findContours(bin_image, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
-  double max_area=0;
+  double area=0;
   int max_area_contour=-1;
   for(int j=0;j<contours.size();j++){
-    //double area=contourArea(contours.at(j));
     area=contourArea(contours.at(j));
     if(max_area<area){
         max_area=area;
@@ -109,8 +113,8 @@ void depth_estimater::rgbImageCallback(const sensor_msgs::ImageConstPtr& msg){
   //circle(rgb_image, Point(x,y),100, Scalar(0,0,255),3,4);
 
   circle(rgb_image, Point(320, 240),25, Scalar(0,255,255),3,4);
-  cv::imshow("rgb", rgb_image);
-  cv::imshow("output", output_image);
+  cv::imshow("rgb", rgb_image);//rgb画像を表示
+  cv::imshow("output", output_image);//2値化画像を表示
   cv::waitKey(10);
 
 }
