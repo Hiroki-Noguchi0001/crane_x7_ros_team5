@@ -13,7 +13,6 @@ from std_msgs.msg import Int32
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 from move_def import hand_move  # ハンドの角度[rad]を指定し動かす関数
-from move_def import joints_moves_rad   # 複数関節の角度[rad]を指定し動かす関数
 
 flag0 = True # 動作フラグ0
 flag1 = True # 動作フラグ1
