@@ -48,13 +48,6 @@
 
 
     <!--補助具付 はんこモデル-->
-    <model name="asstseal_model">
-       <include>
-         <uri>model://asstseal_model</uri>
-       </include>
-       <pose>0.30 -0.15 1.05 0 0 0</pose>
-    </model>
-
     <model name="colorseal_model1">
        <include>
          <uri>model://colorseal_model</uri>
@@ -64,14 +57,14 @@
 
     <model name="colorseal_model2">
        <include>
-         <uri>model://asstseal_model</uri>
+         <uri>model://colorseal_model</uri>
        </include>
        <pose>0.10 -0.25 1.05 0 0 0</pose>
     </model>
 
     <model name="colorseal_model3">
        <include>
-         <uri>model://asstseal_model</uri>
+         <uri>model://colorseal_model</uri>
        </include>
        <pose>0 -0.25 1.05 0 0 0</pose>
     </model>
