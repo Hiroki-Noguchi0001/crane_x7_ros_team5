@@ -35,24 +35,6 @@ y_max = 0.3
 close = 0.10
 
 
-def main2():
-    print("Group names:")
-    print(robot.get_group_names())
-
-    print("Current state:")
-    print(robot.get_current_state())
-
-    # アーム初期ポーズを表示
-    arm_initial_pose = arm.get_current_pose().pose
-    print("Arm initial pose:")
-    print(arm_initial_pose)
-
-    hand_move(0.7)
-
-    #ハンコを探すための位置
-    print("serch")
-    arm_move(see_x, see_y, see_z)
-    rospy.sleep(0.5)
 
 def pick_seal():
     print("持つ")
@@ -70,7 +52,15 @@ def pickcallback(pose):
     limit = pose.theta
     pose_x = pose.x
     pose_y = pose.y
-    global see_x , see_y, mode, x_max, y_max
+    global see_x , see_y, mode, x_max, y_max, first
+
+    if(first):
+        print("serch position")
+        arm_move(see_x, see_y, see_z)
+        hand_move(0.7)
+        rospy.sleep(0.5)
+        first = False
+
 
     if(mode == True):
         hand_move(0.7)
@@ -112,9 +102,6 @@ def pickcallback(pose):
         pass
 
 def main(data):
-    if(first):
-        main2()
-        first = False
     if(data.data == "Detect" and flag):
         rospy.loginfo("Start Detect seal")
         sub = rospy.Subscriber("pose", Pose2D, pickcallback, queue_size=1)
@@ -123,7 +110,6 @@ def main(data):
 
 if __name__ == "__main__":
     rospy.init_node("detect_seal")
-    #main2()
 
     try:
         if not rospy.is_shutdown():
