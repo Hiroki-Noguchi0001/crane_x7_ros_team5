@@ -7,8 +7,9 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
-from std_msgs.msg import String  # メッセージ型
-from std_msgs.msg import Int32  # メッセージ型
+
+from std_msgs.msg import String
+from std_msgs.msg import Int32
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 
@@ -19,7 +20,7 @@ arm = moveit_commander.MoveGroupCommander("arm")
 arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 
 
-def check(data):
+def cd(data):
     global flag, arm
 
     if data.data == "Check" and flag :
@@ -50,12 +51,12 @@ def check(data):
 
 
 def main():
-    sub = rospy.Subscriber("name", String, check) # 動作指示サブスクライバ
+    sub = rospy.Subscriber("name", String, cd) # 動作指示サブスクライバ
     rospy.spin()
 
 
 if __name__ == '__main__':
-    rospy.init_node("check", anonymous=True)
+    rospy.init_node("Check", anonymous=True)
     try:
         if not rospy.is_shutdown():
             main()

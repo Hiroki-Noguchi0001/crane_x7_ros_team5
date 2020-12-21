@@ -8,8 +8,8 @@ import rosnode
 from tf.transformations import quaternion_from_euler
 
 import rospy
-from std_msgs.msg import String  # メッセージ型
-from std_msgs.msg import Int32  # メッセージ型
+from std_msgs.msg import String
+from std_msgs.msg import Int32
 
 FinishFlag = False
 
@@ -20,7 +20,7 @@ def order(data):
 def main():
     global FinishFlag 
     # --------------------
-    rospy.init_node("crane_x7_pick_and_place_controller", anonymous=True)
+    rospy.init_node("RobotDesign3_Team5", anonymous=True)
     pub = rospy.Publisher("name", String, queue_size=1)
     sub = rospy.Subscriber("report", Int32, order)
     # --------------------
@@ -44,11 +44,10 @@ def main():
     print("Arm initial pose:")
     print(arm_initial_pose)
     # --------------------
-    #no-realsense-ver
+    # no-realsense-ver
     #ActionNames = ["Greet", "Artifice", "Check", "Exclusion", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
 
-    rospy.sleep(5)
-    #realsense-ver
+    # realsense-ver
     ActionNames = ["Greet", "Artifice", "Check", "Exclusion", "Detect", "PushCheck", "Seal", "Wipe", "Release", "GutsPose"]
     
     for i in range(len(ActionNames)):
@@ -61,7 +60,6 @@ def main():
 
 
 if __name__ == '__main__':
-
     try:
         if not rospy.is_shutdown():
             main()

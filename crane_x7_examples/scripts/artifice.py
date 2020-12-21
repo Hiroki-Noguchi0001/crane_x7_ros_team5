@@ -7,8 +7,9 @@ import geometry_msgs.msg
 import rosnode
 import math
 from tf.transformations import quaternion_from_euler
-from std_msgs.msg import String  # メッセージ型
-from std_msgs.msg import Int32  # メッセージ型
+
+from std_msgs.msg import String
+from std_msgs.msg import Int32
 
 from move_def import arm_move   # 指定座標に手先を動かす関数
 from move_def import joint_move # 指定関節の角度[deg]を指定し動かす関数
@@ -20,7 +21,7 @@ arm = moveit_commander.MoveGroupCommander("arm")
 arm.set_max_velocity_scaling_factor(0.1) # 実行速度
 
 
-def artifice(data):
+def cd(data):
     global flag, arm
 
     if data.data == "Artifice" and flag :
@@ -36,7 +37,6 @@ def artifice(data):
         arm_initial_pose = arm.get_current_pose().pose # アーム初期ポーズを表示
         # -------------------
         #紙を見つける
-        
         arm.set_named_target("home")
         arm.go()
 
@@ -59,7 +59,7 @@ def artifice(data):
 
 
 def main():
-    sub = rospy.Subscriber("name", String, artifice) # 動作指示サブスクライバ
+    sub = rospy.Subscriber("name", String, cd) # 動作指示サブスクライバ
     rospy.spin()
 
 

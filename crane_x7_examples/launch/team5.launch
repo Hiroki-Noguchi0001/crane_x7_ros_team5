@@ -1,12 +1,12 @@
 <launch>
-  <node name="crane_x7_pick_and_place_controller" pkg="crane_x7_examples" type="robotdesign3_team5.py" required="true" output="screen" />
-  <node name="greet" pkg="crane_x7_examples" type="greet.py" required="true" output="screen" />
-  <node name="check" pkg="crane_x7_examples" type="check.py" required="true" output="screen" />
-  <node name="Grab_Release" pkg="crane_x7_examples" type="grab_release.py" required="true" output="screen" />
-  <node name="Push_Check" pkg="crane_x7_examples" type="push_check.py" required="true" output="screen" />
+  <node name="RobotDesign3_Team5" pkg="crane_x7_examples" type="robotdesign3_team5.py" required="true" output="screen" />
+  <node name="Greet" pkg="crane_x7_examples" type="greet.py" required="true" output="screen" />
+  <node name="Check" pkg="crane_x7_examples" type="check.py" required="true" output="screen" />
+  <node name="Exclusion_Release" pkg="crane_x7_examples" type="grab_release.py" required="true" output="screen" />
+  <node name="PushCheck" pkg="crane_x7_examples" type="push_check.py" required="true" output="screen" />
   <node name="Seal" pkg="crane_x7_examples" type="seal.py" required="true" output="screen" />
   <node name="Wipe" pkg="crane_x7_examples" type="wipe.py" required="true" output="screen" />
-  <node name="Guts_Pose" pkg="crane_x7_examples" type="guts_pose.py" required="true" output="screen" />
+  <node name="GutsPose" pkg="crane_x7_examples" type="guts_pose.py" required="true" output="screen" />
   <node name="Artifice" pkg="crane_x7_examples" type="artifice.py" required="true" output="screen" />
   <node name="detect_seal" pkg="crane_x7_examples" type="detect_seal.py" required="true" output="screen" />
 </launch>
