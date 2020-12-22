@@ -77,7 +77,8 @@
       
     5.  #### ハンコを掴む
         - [detect_seal.py](https://github.com/RobotDesign3-Team5/crane_x7_ros_team5/blob/master/crane_x7_examples/scripts/detect_seal.py)
-          - [color_detection.cp](https://github.com/RobotDesign3-Team5/crane_x7_ros_team5/blob/master/crane_x7_examples/scripts/color_detection.cpp)
+          - [color_detection.cpp](https://github.com/RobotDesign3-Team5/crane_x7_ros_team5/blob/master/crane_x7_examples/scripts/color_detection.cpp)
+        <img src="https://raw.githubusercontent.com/wiki/RobotDesign3-Team5/crane_x7_ros_team5/gif/detect.gif" width="320px">
       
     6.  #### ハンコに朱肉をつける
         - [push_check.py](https://github.com/RobotDesign3-Team5/crane_x7_ros_team5/blob/master/crane_x7_examples/scripts/push_check.py)
