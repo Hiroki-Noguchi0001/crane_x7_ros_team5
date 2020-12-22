@@ -16,9 +16,6 @@ Product page:
 ROS Wiki:  
 [https://wiki.ros.org/crane_x7](https://wiki.ros.org/crane_x7)
 
-Examples:  
-[crane_x7_examples](https://github.com/rt-net/crane_x7_ros/tree/master/crane_x7_examples)
-
 ## System Requirements
 
 These packages have been developed and tested on ROS Kinetic & Melodic.
