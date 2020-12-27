@@ -13,6 +13,11 @@
 ```
 
 ---
+## intelRealSenseの環境構築  
+- RealSense-rosのインストール  
+  - 詳しくは[こちら](https://github.com/IntelRealSense/realsense-ros)から.  
+  - [こちら](https://demura.net/robot/16525.html)も参考になります.  
+---
 ## 実機を使う場合
 - ### モデルの配置
   実機で動作確認を行う場合，以下の図のようにモデルを配置してください．
