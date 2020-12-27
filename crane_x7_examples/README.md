@@ -44,7 +44,14 @@
     ```
     $ roslaunch crane_x7_gazebo crane_x7_with_table.launch
     ```
-
+---
+## RealSenseを使用する場合 
+  - ### 実行方法
+    下記コマンドでintelRealSenseを起動し画像処理を開始する
+    ```
+    $ roslaunch realsense2_camera rs_camera.launch
+    $ rosrun crane_x7_examples image
+    ```
 ---
 ## プログラム
   - ### 実行方法
