@@ -22,8 +22,7 @@
 - ### モデルの配置
   実機で動作確認を行う場合，以下の図のようにモデルを配置してください．
   - 配置図
-    <img src="![haitizu](https://user-images.githubusercontent.com/53966271/103184920-68604f00-48fd-11eb-89c3-a981ffacea60.jpg)
-" width="640px">
+    <img src="https://user-images.githubusercontent.com/53966271/103184951-93e33980-48fd-11eb-8086-58545303d727.jpg" width="640px">
   - 実際の配置
     <img src="https://user-images.githubusercontent.com/53966390/102636762-66c5b700-4198-11eb-89b8-87cf2d557c3d.png" width="640px">
   
